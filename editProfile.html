@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - CC Blogs</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/editProfile.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    
+    <div class="form-container">
+        <h2>Edit Profile</h2>
+        <form id="editProfileForm" method="post" action="http://www.randyconnolly.com/tests/process.php">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="Current Name">
+            </div>
+            <div class="form-group">
+                <label for="displayName">Display Name</label>
+                <input type="text" id="displayName" name="displayName" value="Current Display Name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="current.email@example.com">
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</textarea>
+            </div>
+            <div class="form-group">
+                <label for="profilePicture">Profile Picture</label>
+                <img src="/img/default.jpg" alt="Current Profile Picture">
+                <input type="file" id="profilePicture" name="profilePicture">
+            </div>
+            <div class="form-buttons">
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="window.location.href='profile.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#header").load("header.html");
+            $("#editProfileForm").submit(function(event) {
+                var isValid = true;
+
+                $(".form-group input[type='text'], .form-group input[type='email']").each(function() {
+                    var input = $(this);
+                    if (input.val().trim() === "") {
+                        isValid = false;
+                        input.addClass("error");
+                        if (input.next(".error-message").length === 0) {
+                            var errorMessage = $("<p class='error-message'>This section is required</p>");
+                            input.closest(".form-group").append(errorMessage);
+                        }
+                    } else {
+                        input.removeClass("error");
+                        input.next(".error-message").remove();
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault();
+                } else {
+                    alert("Profile updated successfully!");
+                }
+            });
+
+            $(".form-group input[type='text'], .form-group input[type='email']").focus(function() {
+                $(this).removeClass("error");
+                $(this).next(".error-message").remove();
+            });
+        });
+    </script>
+</body>
+</html>
