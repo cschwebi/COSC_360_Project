@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - CC Blogs</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    
+    <div class="profile-container">
+        <div class="breadcrumb"><a href="home">Home</a> > Profile</div>
+        <div class="profile-info">
+            <div class="profile-photo">Profile Photo</div>
+            <div class="profile-details">
+                <p><strong>Name</strong></p>
+                <p>Display Name</p>
+                <p><strong>Bio:</strong></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            </div>
+        </div>
+        <p class="context-text">This is what everyone's profile looks like, but you can look at yours by clicking the profile button. If you aren’t logged in, it will prompt you to log in.</p>
+        
+        <div class="tabs">
+            <button class="tab-link active" data-tab="posts">Posts</button>
+            <button class="tab-link" data-tab="comments">Comments</button>
+            <button class="tab-link" data-tab="likes">Likes</button>
+        </div>
+        <div class="tab-content" id="posts">
+            <div class="post">
+                <h3>Example Blog</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                <div class="post-image">COVER IMAGE FROM BLOG</div>
+            </div>
+            <div class="post">
+                <h3>Example Blog</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                <div class="post-image">COVER IMAGE FROM BLOG</div>
+            </div>
+        </div>
+        <div class="tab-content" id="comments" style="display:none;">
+            <div class="comment">
+                <p>&#10132; Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            </div>
+            <div class="comment">
+                <p>&#10132; Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            </div>
+        </div>
+        <div class="tab-content" id="likes" style="display:none;">
+            <p>Liked posts will appear here.</p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#header").load("header.html");
+            $(".tab-link").click(function() {
+                var tab = $(this).data("tab");
+                $(".tab-link").removeClass("active");
+                $(this).addClass("active");
+                $(".tab-content").hide();
+                $("#" + tab).show();
+            });
+        });
+    </script>
+</body>
+</html>

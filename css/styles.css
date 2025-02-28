@@ -1,0 +1,102 @@
+body {
+    font-family: 'Georgia', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8fc;
+}
+
+main {
+    max-width: 1100px;
+    margin: 1.25em auto;
+    padding: 1.25em;
+}
+
+/* Layout for the content */
+.content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Blogs Section */
+.blogs {
+    flex: 3;
+}
+
+.blog {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.blog-text {
+    flex: 2;
+}
+
+.blog-text h3 a {
+    color: #2e2f59;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.blog-text p {
+    font-size: 1rem;
+    color: #333;
+}
+
+.blog-image {
+    flex: 1;
+    background: #ccc;
+    width: 150px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Trending Topics Sidebar */
+.trending-topics {
+    flex: 1;
+    background: #fdf7d8;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.trending-topics h2 {
+    font-size: 1.5rem;
+    color: black;
+}
+
+.trending-topics ol {
+    list-style-position: inside;
+    padding: 0;
+}
+
+.trending-topics ol li a {
+    text-decoration: none;
+    color: blue;
+    font-size: 1rem;
+}
+
+.blog-post {
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+}
+
+.blog-post img {
+    max-width: 100%;
+    height: auto;
+}
+
+#trending-topics li {
+    list-style: none;
+    margin: 5px 0;
+}
