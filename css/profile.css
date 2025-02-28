@@ -132,3 +132,18 @@ body {
 .comment-blog .blog-text {
     color: #999; /* lighter color for blog text */
 }
+.button-container {
+    text-align: right;
+}
+.button-container button {
+    margin: 5px;
+    padding: 5px 20px;
+    font-size: 16px;
+    border-radius: 16px;
+    border: 0px;
+    cursor: pointer
+}
+
+.button-container button:hover{
+    background-color: rgb(150, 150, 150)
+}
