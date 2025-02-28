@@ -22,8 +22,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
             </div>
         </div>
-        <p class="context-text">This is what everyone's profile looks like, but you can look at yours by clicking the profile button. If you aren’t logged in, it will prompt you to log in.</p>
-        
+         
         <div class="tabs">
             <button class="tab-link active" data-tab="posts">Posts</button>
             <button class="tab-link" data-tab="comments">Comments</button>
@@ -31,22 +30,61 @@
         </div>
         <div class="tab-content" id="posts">
             <div class="post">
-                <h3>Example Blog</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-                <div class="post-image">COVER IMAGE FROM BLOG</div>
+                <article class="blog">
+                    <div class="blog-text">
+                        <h3><a href="#">Example Blog</a></h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+                    </div>
+                    <div class="blog-image">COVER IMAGE FROM BLOG</div>
+                </article>
             </div>
             <div class="post">
-                <h3>Example Blog</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-                <div class="post-image">COVER IMAGE FROM BLOG</div>
+                <article class="blog">
+                    <div class="blog-text">
+                        <h3><a href="#">Example Blog</a></h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+                    </div>
+                    <div class="blog-image">COVER IMAGE FROM BLOG</div>
+                </article>
+            </div>
+            <div class="post">
+                <article class="blog">
+                    <div class="blog-text">
+                        <h3><a href="#">Example Blog</a></h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+                    </div>
+                    <div class="blog-image">COVER IMAGE FROM BLOG</div>
+                </article>
             </div>
         </div>
         <div class="tab-content" id="comments" style="display:none;">
-            <div class="comment">
-                <p>&#10132; Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <div class="comment-container">
+                <div class="comment-blog">
+                    <article class="blog">
+                        <div class="blog-text">
+                            <h3><a href="#">Example Blog</a></h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+                        </div>
+                        <div class="blog-image">COVER IMAGE FROM BLOG</div>
+                    </article>
+                </div>
+                <div class="comment">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                </div>
             </div>
-            <div class="comment">
-                <p>&#10132; Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <div class="comment-container">
+                <div class="comment-blog">
+                    <article class="blog">
+                        <div class="blog-text">
+                            <h3><a href="#">Example Blog</a></h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+                        </div>
+                        <div class="blog-image">COVER IMAGE FROM BLOG</div>
+                    </article>
+                </div>
+                <div class="comment">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                </div>
             </div>
         </div>
         <div class="tab-content" id="likes" style="display:none;">
