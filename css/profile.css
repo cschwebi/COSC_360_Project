@@ -125,3 +125,10 @@ body {
     color: #333;
     margin: 0;
 }
+
+.comment-container {
+    margin-bottom: 20px;
+}
+.comment-blog .blog-text {
+    color: #999; /* lighter color for blog text */
+}
