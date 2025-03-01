@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile - CC Blogs</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/authors.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <div id="header"></div>
+
+        <div class="breadcrumb-filter">
+            <div class="breadcrumb"><a href="index.html">Home</a> > Trending Search</div>
+            <input type="button" id="filter-btn" value="Filter">
+          </div>
+          
+          <div class="filter-panel">
+            <h3>Filter Options</h3>
+            <label><input type="checkbox" name="category" value="finance"> Finance</label><br>
+            <label><input type="checkbox" name="category" value="health"> Health</label><br>
+            <label><input type="checkbox" name="category" value="technology"> Technology</label><br>
+            <label><input type="checkbox" name="category" value="travel"> Travel</label><br>
+            <label><input type="checkbox" name="category" value="productivity"> Productivity</label><br>
+            <label><input type="checkbox" name="category" value="food"> Food</label><br>
+            <label><input type="checkbox" name="category" value="business"> Business</label><br>
+            <label><input type="checkbox" name="category" value="parenting"> Parenting</label><br>
+            <label><input type="checkbox" name="category" value="education"> Education</label><br>
+            <label><input type="checkbox" name="category" value="entertainment"> Entertainment</label><br>
+            <label><input type="checkbox" name="category" value="other"> Other</label><br>
+            <input type="button" value="Apply Filters">
+          </div>
+
+          <main>
+            <article class="blog" data-category="finance">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="health">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="technology">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="travel">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="productivity">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="food">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="business">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="parenting">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="education">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="entertainment">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          
+            <article class="blog" data-category="other">
+              <div class="blog-text">
+                <h3><a href="blogpage.html">Example Blog</a></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales...</p>
+              </div>
+              <div class="blog-image">COVER IMAGE FROM BLOG</div>
+            </article>
+          </main>
+
+        <script>
+            $(document).ready(function() {
+              $("#header").load("header.html");
+        
+              $('#filter-btn').click(function() {
+                $('.filter-panel').slideToggle();
+              });
+        
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            if (categoryParam) {
+                $(`.filter-panel input[value="${categoryParam}"]`).prop('checked', true);
+                $('.filter-panel').show();
+            }
+            });
+          </script>
+    </body>
+
+</html>
