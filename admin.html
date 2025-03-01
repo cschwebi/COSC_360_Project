@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - CC Blogs</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    
+    <nav class="breadcrumb">
+        <a href="index.html">Home</a> &gt; 
+        <span>Admin Panel</span>
+    </nav>
+    
+    <div class="admin-container">
+        <h2>Admin Panel</h2>
+
+        <div class="search-container">
+            <h3>Search for User</h3>
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="search">Search by:</label>
+                    <div class="search-options">
+                        <label><input type="radio" name="searchType" value="name" checked> Name</label>
+                        <label><input type="radio" name="searchType" value="email"> Email</label>
+                        <label><input type="radio" name="searchType" value="post"> Post</label>
+                    </div>
+                    <input type="text" id="search" name="search">
+                    <button type="submit"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="user-management">
+            <h3>User Management</h3>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- User rows will be populated here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="post-management">
+            <h3>Post Management</h3>
+            <table id="postTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Post rows will be populated here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#header").load("header.html");
+
+            // Dummy data for users and posts
+            var users = [
+                { name: "John Doe", email: "john@example.com", status: "Enabled" },
+                { name: "Jane Smith", email: "jane@example.com", status: "Disabled" }
+            ];
+            var posts = [
+                { title: "First Post", author: "John Doe", date: "2023-01-01" },
+                { title: "Second Post", author: "Jane Smith", date: "2023-02-15" }
+            ];
+
+            // Populate user table
+            users.forEach(function(user) {
+                var userRow = `<tr>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td class="status">${user.status}</td>
+                    <td>
+                        <button class="enable-disable">${user.status === 'Enabled' ? 'Disable' : 'Enable'}</button>
+                    </td>
+                </tr>`;
+                $("#userTable tbody").append(userRow);
+            });
+
+            // Populate post table
+            posts.forEach(function(post) {
+                var postRow = `<tr>
+                    <td>${post.title}</td>
+                    <td>${post.author}</td>
+                    <td>${post.date}</td>
+                    <td>
+                        <button class="edit-post"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="remove-post"><i class="fas fa-trash"></i> Remove</button>
+                    </td>
+                </tr>`;
+                $("#postTable tbody").append(postRow);
+            });
+
+            // Enable/Disable user functionality
+            $(".enable-disable").click(function() {
+                var statusCell = $(this).closest("tr").find(".status");
+                var currentStatus = statusCell.text();
+                var newStatus = currentStatus === "Enabled" ? "Disabled" : "Enabled";
+                statusCell.text(newStatus);
+                $(this).text(newStatus === "Enabled" ? "Disable" : "Enable");
+            });
+
+            // Edit post functionality (placeholder)
+            $(".edit-post").click(function() {
+                alert("Edit post functionality not implemented yet.");
+            });
+
+            // Remove post functionality
+            $(".remove-post").click(function() {
+                $(this).closest("tr").remove();
+            });
+
+            // Search functionality (placeholder)
+            $("#searchForm").submit(function(event) {
+                event.preventDefault();
+                alert("Search functionality not implemented yet.");
+            });
+        });
+    </script>
+</body>
+</html>
