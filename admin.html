@@ -48,7 +48,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- User rows will be populated here dynamically -->
+                    <!-- Users populated here dynamically -->
                 </tbody>
             </table>
         </div>
@@ -65,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Post rows will be populated here dynamically -->
+                    <!-- Posts populated here dynamically -->
                 </tbody>
             </table>
         </div>
@@ -112,7 +112,7 @@
                 $("#postTable tbody").append(postRow);
             });
 
-            // Enable/Disable user functionality
+            // Enable/Disable users
             $(".enable-disable").click(function() {
                 var statusCell = $(this).closest("tr").find(".status");
                 var currentStatus = statusCell.text();
@@ -121,17 +121,17 @@
                 $(this).text(newStatus === "Enabled" ? "Disable" : "Enable");
             });
 
-            // Edit post functionality (placeholder)
+            // Edit post placeholder
             $(".edit-post").click(function() {
                 alert("Edit post functionality not implemented yet.");
             });
 
-            // Remove post functionality
+            // Remove posts placeholder
             $(".remove-post").click(function() {
                 $(this).closest("tr").remove();
             });
 
-            // Search functionality (placeholder)
+            // search placeholder
             $("#searchForm").submit(function(event) {
                 event.preventDefault();
                 alert("Search functionality not implemented yet.");
