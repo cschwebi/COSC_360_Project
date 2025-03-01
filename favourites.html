@@ -17,6 +17,29 @@
             <input type="button" id="fav-btn" value="Edit Favourites">
         </div>
 
+        <div class="filter-panel">
+          <h3>Filter Options</h3>
+          <label>
+            <input type="checkbox" name="filter" value="option1" /> Option 1
+          </label>
+          <br />
+          <label>
+            <input type="checkbox" name="filter" value="option2" /> Option 2
+          </label>
+          <br />
+          <label>
+            <input type="checkbox" name="filter" value="option3" /> Option 3
+          </label>
+          <br />
+          <input type="button" value="Apply Filters" />
+        </div>
+    
+        <div class="fav-panel">
+          <h3>Edit Favourites</h3>
+          <p>Favourite editing options go here.</p>
+          <input type="button" value="Save Changes" />
+        </div>
+
         <div class="tabs">
             <button class="tab-link active" data-tab="authors-tab">Authors</button>
             <button class="tab-link" data-tab="blogs-tab">Blogs</button>
@@ -76,37 +99,43 @@
           </div>
         
           <script>
-            $(document).ready(function() {
-              $("#header").load("header.html");
-              const $slider = $(".slider");
-              const $tabLinks = $(".tab-link");
-          
-              //a function to position the slider under a given button
-              function moveSlider($btn) {
-                const leftPos = $btn.position().left;
-                const width = $btn.outerWidth();          // button width
-                $slider.css({ left: leftPos, width: width });
-              }
-          
-              // Initialize slider under the default active tab
-              moveSlider($(".tab-link.active"));
-          
-              // tab logic
-              $tabLinks.click(function() {
-                //mark clicked tab as active
-                $tabLinks.removeClass("active");
-                $(this).addClass("active");
-          
-                //slide up the visible tab, then slide down the new one
-                const tab = $(this).data("tab");
-                $(".tab-content:visible").slideUp(function() {
-                  $("#" + tab).slideDown();
-                });
-          
-                //move slider under the new active tab
-                moveSlider($(this));
+            $(document).ready(function () {
+            $("#header").load("header.html");
+
+            // Initialize tab slider functionality
+            const $slider = $(".slider");
+            const $tabLinks = $(".tab-link");
+
+            function moveSlider($btn) {
+              const leftPos = $btn.position().left;
+              const width = $btn.outerWidth();
+              $slider.css({ left: leftPos, width: width });
+            }
+
+            moveSlider($(".tab-link.active"));
+
+            $tabLinks.click(function () {
+              $tabLinks.removeClass("active");
+              $(this).addClass("active");
+
+              const tab = $(this).data("tab");
+              $(".tab-content:visible").slideUp(function () {
+                $("#" + tab).slideDown();
               });
+
+              moveSlider($(this));
             });
+
+            // Toggle Filter Panel
+            $("#filter-btn").click(function () {
+              $(".filter-panel").slideToggle();
+            });
+
+            // Toggle Edit Favourites Panel
+            $("#fav-btn").click(function () {
+              $(".fav-panel").slideToggle();
+            });
+          });
           </script>
     </body>
 </html>
