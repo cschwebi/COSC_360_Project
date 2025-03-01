@@ -25,11 +25,6 @@
                 <div class="error-message">This section is required</div>
             </div>
             <div class="form-group">
-                <label for="displayName">Display Name (Username)</label>
-                <input type="text" id="displayName" name="displayName">
-                <div class="error-message">This section is required</div>
-            </div>
-            <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email">
                 <div class="error-message">Please enter a valid email</div>
@@ -60,6 +55,8 @@
             $("#header").load("header.html");
 
             $("#registerForm").submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+
                 var isValid = true;
 
                 // Validate Full Name
@@ -70,16 +67,6 @@
                 } else {
                     $("#fullName").removeClass("error");
                     $("#fullName").next(".error-message").hide();
-                }
-
-                // Validate Display Name
-                if ($("#displayName").val().trim() === "") {
-                    isValid = false;
-                    $("#displayName").addClass("error");
-                    $("#displayName").next(".error-message").show();
-                } else {
-                    $("#displayName").removeClass("error");
-                    $("#displayName").next(".error-message").hide();
                 }
 
                 // Validate Email
@@ -132,10 +119,11 @@
                     $("#profilePicture").next(".error-message").hide();
                 }
 
-                if (!isValid) {
-                    event.preventDefault();
-                } else {
-                    alert("Registration successful!");
+                if (isValid) {
+                    // Simulate a successful submission
+                    setTimeout(function() {
+                        window.location.href = "profile.html";
+                    }, 1000);
                 }
             });
 
