@@ -10,7 +10,7 @@
 </head>
 <body>
     <div id="header"></div>
-    
+
     <nav class="breadcrumb">
         <a href="index.html">Home</a> &gt; 
         <a href="profile.html">Profile</a> &gt; 
@@ -19,18 +19,21 @@
     
     <div class="form-container">
         <h2>Edit Profile</h2>
-        <form id="editProfileForm" method="post" action="http://www.randyconnolly.com/tests/process.php">
+        <form id="editProfileForm" method="post"  action="http://www.randyconnolly.com/tests/process.php">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" value="Current Name">
+                <input type="text" id="name" name="name" value="Name">
+                <div class="error-message">This section is required</div>
             </div>
             <div class="form-group">
                 <label for="displayName">Display Name</label>
-                <input type="text" id="displayName" name="displayName" value="Current Display Name">
+                <input type="text" id="displayName" name="displayName" value="Display name">
+                <div class="error-message">This section is required</div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="current.email@example.com">
+                <input type="email" id="email" name="email" value="email@example.com">
+                <div class="error-message">This section is required</div>
             </div>
             <div class="form-group">
                 <label for="bio">Bio</label>
@@ -38,7 +41,6 @@
             </div>
             <div class="form-group">
                 <label for="profilePicture">Profile Picture</label>
-                <img src="/img/default.jpg" alt="Current Profile Picture">
                 <input type="file" id="profilePicture" name="profilePicture">
             </div>
             <div class="form-buttons">
@@ -49,38 +51,35 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $("#header").load("header.html");
-            $("#editProfileForm").submit(function(event) {
-                var isValid = true;
+    $(document).ready(function() {
+        $("#header").load("header.html");
 
-                $(".form-group input[type='text'], .form-group input[type='email']").each(function() {
-                    var input = $(this);
-                    if (input.val().trim() === "") {
-                        isValid = false;
-                        input.addClass("error");
-                        if (input.next(".error-message").length === 0) {
-                            var errorMessage = $("<p class='error-message'>This section is required</p>");
-                            input.closest(".form-group").append(errorMessage);
-                        }
-                    } else {
-                        input.removeClass("error");
-                        input.next(".error-message").remove();
-                    }
-                });
+        $("#editProfileForm").submit(function(event) {
+            var isValid = true;
 
-                if (!isValid) {
-                    event.preventDefault();
+            $("#name, #displayName, #email").each(function() {
+                if ($(this).val().trim() === "") {
+                    isValid = false;
+                    $(this).addClass("error");
+                    $(this).next(".error-message").show();
                 } else {
-                    alert("Profile updated successfully!");
+                    $(this).removeClass("error");
+                    $(this).next(".error-message").hide();
                 }
             });
 
-            $(".form-group input[type='text'], .form-group input[type='email']").focus(function() {
-                $(this).removeClass("error");
-                $(this).next(".error-message").remove();
-            });
+            if (!isValid) {
+                event.preventDefault();
+            } else {
+                alert("Profile updated successfully!");
+            }
         });
+
+        $("#name, #displayName, #email").on("input", function() {
+            $(this).removeClass("error");
+            $(this).next(".error-message").hide();
+        });
+    });
     </script>
 </body>
 </html>
