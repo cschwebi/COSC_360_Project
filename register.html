@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CC Blogs</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/register.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    
+    <nav class="breadcrumb">
+        <a href="index.html">Home</a> &gt; 
+        <span>Register</span>
+    </nav>
+    
+    <div class="form-container">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName">
+                <div class="error-message">This section is required</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                <div class="error-message">Please enter a valid email</div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <div class="error-message">This section is required</div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+                <div class="error-message">Passwords must match</div>
+            </div>
+            <div class="form-group">
+                <label for="profilePicture">Profile Picture</label>
+                <input type="file" id="profilePicture" name="profilePicture">
+                <div class="error-message">Please upload a valid image file (jpg, jpeg, png)</div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#header").load("header.html");
+
+            $("#registerForm").submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                var isValid = true;
+
+                // Validate Full Name
+                if ($("#fullName").val().trim() === "") {
+                    isValid = false;
+                    $("#fullName").addClass("error");
+                    $("#fullName").next(".error-message").show();
+                } else {
+                    $("#fullName").removeClass("error");
+                    $("#fullName").next(".error-message").hide();
+                }
+
+                // Validate Email
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test($("#email").val().trim())) {
+                    isValid = false;
+                    $("#email").addClass("error");
+                    $("#email").next(".error-message").show();
+                } else {
+                    $("#email").removeClass("error");
+                    $("#email").next(".error-message").hide();
+                }
+
+                // Validate Password
+                if ($("#password").val().trim() === "") {
+                    isValid = false;
+                    $("#password").addClass("error");
+                    $("#password").next(".error-message").show();
+                } else {
+                    $("#password").removeClass("error");
+                    $("#password").next(".error-message").hide();
+                }
+
+                // Validate Confirm Password
+                if ($("#confirmPassword").val().trim() === "") {
+                    isValid = false;
+                    $("#confirmPassword").addClass("error");
+                    $("#confirmPassword").next(".error-message").show();
+                } else if ($("#password").val().trim() !== $("#confirmPassword").val().trim()) {
+                    isValid = false;
+                    $("#confirmPassword").addClass("error");
+                    $("#confirmPassword").next(".error-message").show();
+                } else {
+                    $("#confirmPassword").removeClass("error");
+                    $("#confirmPassword").next(".error-message").hide();
+                }
+
+                // Validate Profile Picture
+                var profilePicture = $("#profilePicture")[0].files[0];
+                if (!profilePicture) {
+                    isValid = false;
+                    $("#profilePicture").addClass("error");
+                    $("#profilePicture").next(".error-message").show();
+                } else if (!profilePicture.type.match('image.*')) {
+                    isValid = false;
+                    $("#profilePicture").addClass("error");
+                    $("#profilePicture").next(".error-message").show();
+                } else {
+                    $("#profilePicture").removeClass("error");
+                    $("#profilePicture").next(".error-message").hide();
+                }
+
+                if (isValid) {
+                    // Simulate a successful submission
+                    setTimeout(function() {
+                        window.location.href = "profile.html";
+                    }, 1000);
+                }
+            });
+
+            // Remove error class and hide error message on input
+            $("#fullName, #displayName, #email, #password, #confirmPassword").on("input", function() {
+                $(this).removeClass("error");
+                $(this).next(".error-message").hide();
+            });
+
+            $("#profilePicture").on("change", function() {
+                var profilePicture = $(this)[0].files[0];
+                if (!profilePicture || !profilePicture.type.match('image.*')) {
+                    $(this).addClass("error");
+                    $(this).next(".error-message").show();
+                } else {
+                    $(this).removeClass("error");
+                    $(this).next(".error-message").hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

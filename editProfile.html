@@ -19,7 +19,7 @@
     
     <div class="form-container">
         <h2>Edit Profile</h2>
-        <form id="editProfileForm" method="post"  action="http://www.randyconnolly.com/tests/process.php">
+        <form id="editProfileForm" method="post" action="http://www.randyconnolly.com/tests/process.php">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" value="Name">
@@ -42,6 +42,7 @@
             <div class="form-group">
                 <label for="profilePicture">Profile Picture</label>
                 <input type="file" id="profilePicture" name="profilePicture">
+                <div class="error-message">Please upload a valid image file (jpg, jpeg, png)</div>
             </div>
             <div class="form-buttons">
                 <button type="submit">Save Changes</button>
@@ -51,15 +52,49 @@
     </div>
 
     <script>
-    $(document).ready(function() {
-        $("#header").load("header.html");
+        $(document).ready(function() {
+            $("#header").load("header.html");
 
-        $("#editProfileForm").submit(function(event) {
-            var isValid = true;
+            $("#editProfileForm").submit(function(event) {
+                var isValid = true;
 
-            $("#name, #displayName, #email").each(function() {
-                if ($(this).val().trim() === "") {
+                $("#name, #displayName, #email").each(function() {
+                    if ($(this).val().trim() === "") {
+                        isValid = false;
+                        $(this).addClass("error");
+                        $(this).next(".error-message").show();
+                    } else {
+                        $(this).removeClass("error");
+                        $(this).next(".error-message").hide();
+                    }
+                });
+
+                // Validate Profile Picture
+                var profilePicture = $("#profilePicture")[0].files[0];
+                if (profilePicture && !profilePicture.type.match('image.*')) {
                     isValid = false;
+                    $("#profilePicture").addClass("error");
+                    $("#profilePicture").next(".error-message").show();
+                } else {
+                    $("#profilePicture").removeClass("error");
+                    $("#profilePicture").next(".error-message").hide();
+                }
+
+                if (!isValid) {
+                    event.preventDefault();
+                } else {
+                    alert("Profile updated successfully!");
+                }
+            });
+
+            $("#name, #displayName, #email").on("input", function() {
+                $(this).removeClass("error");
+                $(this).next(".error-message").hide();
+            });
+
+            $("#profilePicture").on("change", function() {
+                var profilePicture = $(this)[0].files[0];
+                if (profilePicture && !profilePicture.type.match('image.*')) {
                     $(this).addClass("error");
                     $(this).next(".error-message").show();
                 } else {
@@ -67,19 +102,7 @@
                     $(this).next(".error-message").hide();
                 }
             });
-
-            if (!isValid) {
-                event.preventDefault();
-            } else {
-                alert("Profile updated successfully!");
-            }
         });
-
-        $("#name, #displayName, #email").on("input", function() {
-            $(this).removeClass("error");
-            $(this).next(".error-message").hide();
-        });
-    });
     </script>
 </body>
 </html>
