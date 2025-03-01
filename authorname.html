@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - CC Blogs</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .profile-info img {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="profile-container">
+    <div class="breadcrumb"><a href="index.html">Home</a> > <a href="authors.html">Authors</a> > Author</div>
+
+    <div class="profile-info">
+      <img src="img/default.png" alt="author name">
+      <div class="profile-details">
+        <p><strong>Name</strong></p>
+        <p>Display Name</p>
+        <p><strong>Bio:</strong></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        <p><strong>Total Likes:</strong> #</p>
+        <p><strong>Total Posts:</strong> #</p>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <a href="editProfile.html"><button>Edit Profile</button></a>
+      <a href="createPost.html"><button>Create Post</button></a>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-link active" data-tab="posts">Posts</button>
+    </div>
+
+    <div class="tab-content" id="posts">
+      <div class="blog-post">
+        <article class="blog">
+          <div class="text">
+            <h2><a href="blogpage.html">Example Blog</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+          </div>
+          <div class="image">COVER IMAGE FROM BLOG</div>
+        </article>
+      </div>
+      <div class="blog-post">
+        <article class="blog">
+          <div class="text">
+            <h2><a href="blogpage.html">Example Blog</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+          </div>
+          <div class="image">COVER IMAGE FROM BLOG</div>
+        </article>
+      </div>
+      <div class="blog-post">
+        <article class="blog">
+          <div class="text">
+            <h2><a href="blogpage.html">Example Blog</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+          </div>
+          <div class="image">COVER IMAGE FROM BLOG</div>
+        </article>
+      </div>
+    </div>
+
+    <div class="tab-content" id="comments" style="display:none;">
+      <div class="comment-container">
+        <div class="comment-blog">
+          <article class="blog">
+            <div class="text">
+              <h2><a href="blogpage.html">Example Blog</a></h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+            </div>
+            <div class="image">COVER IMAGE FROM BLOG</div>
+          </article>
+        </div>
+        <div class="comment">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        </div>
+      </div>
+      <div class="comment-container">
+        <div class="comment-blog">
+          <article class="blog">
+            <div class="text">
+              <h2><a href="blogpage.html">Example Blog</a></h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
+            </div>
+            <div class="image">COVER IMAGE FROM BLOG</div>
+          </article>
+        </div>
+        <div class="comment">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="likes" style="display:none;">
+      <p>Liked posts will appear here.</p>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $("#header").load("header.html");
+    });
+  </script>
+</body>
+</html>
