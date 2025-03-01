@@ -102,12 +102,12 @@
             $("#topic").next(".error-message").hide();
         }
 
-        // Set default header image if none is provided
+        // Set default header image if none given
         if ($("#headerImage").val().trim() === "") {
             $("#headerImage").val($("#defaultHeaderImage").val());
         }
 
-        // Prevent form submission if any field is invalid
+        // Prevent submission if invalid field
         if (!isValid) {
             event.preventDefault();
         } else {
@@ -115,7 +115,7 @@
         }
     });
 
-    // Remove error class and hide error message on focus
+    // hide error message on focus
     $("#title, #body, #topic").on("input", function() {
         $(this).removeClass("error");
         $(this).next(".error-message").hide();

@@ -1,0 +1,137 @@
+body {
+    overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+.admin-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    margin: 10px 0;
+    position: relative;
+    left: 1em;
+}
+
+.breadcrumb a {
+    color: #333;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: #777;
+}
+
+.search-container,
+.user-management,
+.post-management {
+    margin-bottom: 30px;
+}
+
+h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-group input.error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.form-group img {
+    display: block;
+    margin-bottom: 10px;
+    max-width: 150px;
+    height: auto;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+.form-buttons button {
+    margin: 5px;
+    padding: 5px 20px;
+    font-size: 16px;
+    border-radius: 16px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.form-buttons button:hover {
+    background-color: rgb(150, 150, 150);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+table td {
+    background-color: #fff;
+}
+
+table tr:hover {
+    background-color: #f2f2f2;
+}
+
+button.enable-disable,
+button.edit-post,
+button.remove-post {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 0px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+button.enable-disable:hover,
+button.edit-post:hover,
+button.remove-post:hover {
+    background-color: #0056b3;
+}
