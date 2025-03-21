@@ -40,11 +40,11 @@
             $("#header").load("header.html");
 
             $("#loginForm").submit(function(event) {
-                event.preventDefault(); // Prevent default form submission
+                event.preventDefault(); //prevent default form submission
 
                 var isValid = true;
 
-                // Validate Email
+                //validate Email
                 var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test($("#email").val().trim())) {
                     isValid = false;
