@@ -55,7 +55,7 @@
             $("#header").load("header.php");
 
             $("#registerForm").submit(function(event) {
-                event.preventDefault(); 
+                //event.preventDefault(); 
 
                 var isValid = true;
 
@@ -119,10 +119,11 @@
                     $("#profilePicture").next(".error-message").hide();
                 }
 
-                if (isValid) {
+                if (!isValid) {
                     // Simulate a successful submission
                     setTimeout(function() {
-                        window.location.href = "profile.html";
+                        //window.location.href = "profile.html";
+                        event.preventDefault();
                     }, 1000);
                 }
             });
