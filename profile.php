@@ -14,12 +14,27 @@
     <div class="profile-container">
         <div class="breadcrumb"><a href="index.html">Home</a> > Profile</div>
         <div class="profile-info">
-            <div class="profile-photo">Profile Photo</div>
+            <?php
+                session_start();
+                if (isset($_SESSION['user_id'])){
+                    if (isset($_SESSION['profileImage']) && !empty($_SESSION['profileImage']) && $_SESSION['profileImage'] != null) {
+                        echo '<img src="' . htmlspecialchars($_SESSION['profileImage']) . '" alt="Profile Photo">';
+                    } else {
+                        echo '<div class="profile-photo">Profile Photo</div>';
+                    }
+                }else{
+                    echo '<div class="profile-photo">Profile Photo</div>';
+                }
+            ?>
             <div class="profile-details">
-                <p><strong>Name</strong></p>
-                <p>Display Name</p>
-                <p><strong>Bio:</strong></p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                <p><strong>Name: </strong></p>
+                <?php
+                    echo "<p>" . $_SESSION['displayName'] . "</p>";
+                ?>
+                <p><strong>Bio: </strong></p>
+                <?php
+                    echo "<p>" . $_SESSION['bio'] . "</p>";
+                ?>
             </div> 
         </div>
         <div class="button-container">

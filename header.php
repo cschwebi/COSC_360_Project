@@ -27,7 +27,7 @@
         <?php
         session_start();
         if (isset($_SESSION['user_id'])){
-          echo "<a href='profile.html'>Login</a> |";
+          echo "<a href='profile.php'>Login</a> |";
         }else{
           echo "<a href='login.html'>Login</a> |";
         }
@@ -45,10 +45,20 @@
   </div>
   <nav>
     <ul>
-      <li><a href="settings.html">Settings</a></li>
-      <li><a href="authors.html">Authors</a></li>
-      <li><a href="favourites.html">Favourites</a></li>
-      <li><a href="profile.html">Profile</a></li>
+      <?php
+          //session_start();
+          if (isset($_SESSION['user_id'])){
+            echo "<li><a href='settings.html'>Settings</a></li>";
+            echo "<li><a href='authors.html'>Authors</a></li>";
+            echo "<li><a href='favourites.html'>Favourites</a></li>";
+            echo "<li><a href='profile.php'>Profile</a></li>";
+          }else{
+            echo "<li><a href='login.html'>Settings</a></li>";
+            echo "<li><a href='authors.html'>Authors</a></li>";
+            echo "<li><a href='login.html'>Favourites</a></li>";
+            echo "<li><a href='login.html'>Profile</a></li>";
+          }
+      ?>
     </ul>
   </nav>
 </header>

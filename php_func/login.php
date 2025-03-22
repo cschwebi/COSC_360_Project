@@ -36,10 +36,16 @@ if (!isset($_SESSION['user_id'])){
         //if ($userRecord && password_verify($password, $userRecord['password'])) {
         if ($userRecord && $userRecord['password'] === $password) {
             // Successful login, store necessary data in session
-            $_SESSION['user_id'] = $userRecord['id'];
-            $_SESSION['displayName'] = $userRecord['displayName'];
+            $_SESSION['user_id']      = $userRecord['id'];
+            $_SESSION['displayName']  = $userRecord['fullName'];
+            $_SESSION['email']        = $userRecord['email'];
+            $_SESSION['profileImage'] = $userRecord['profileImage'];
+            $_SESSION['bio']          = $userRecord['bio'];
+            $_SESSION['role']         = $userRecord['role'];
+            $_SESSION['created_at']   = $userRecord['created_at'];
+            $_SESSION['updated_at']   = $userRecord['updated_at'];
             // Redirect to a protected page, e.g., profile.php or index.html
-            header("Location: ..\profile.html");
+            header("Location: ..\profile.php");
             exit;
         } else {
             // Failed login: Optionally, you can redirect back with an error message
@@ -48,7 +54,7 @@ if (!isset($_SESSION['user_id'])){
         }
     } else {
         // If not a POST request, redirect to login page
-        header("Location: login.html");
+        header("Location: login.php");
         exit;
     }
 }else{
