@@ -6,7 +6,6 @@ CREATE TABLE users (
     fullName VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,  -- store hashed passwords
-    displayName VARCHAR(255),
     profileImage VARCHAR(255),       -- path or URL to the user's profile image
     bio TEXT,
     role ENUM('user', 'admin') DEFAULT 'user',  -- distinguishes regular users from admins

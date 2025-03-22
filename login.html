@@ -18,7 +18,7 @@
     
     <div class="form-container">
         <h2>Login</h2>
-        <form id="loginForm">
+        <form id="loginForm" action="php/login.php" method="POST">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email">
@@ -40,7 +40,7 @@
             $("#header").load("header.html");
 
             $("#loginForm").submit(function(event) {
-                event.preventDefault(); //prevent default form submission
+               // event.preventDefault(); //prevent default form submission
 
                 var isValid = true;
 
@@ -65,10 +65,11 @@
                     $("#password").next(".error-message").hide();
                 }
 
-                if (isValid) {
+                if (!isValid) {
                     // Simulate a successful login
                     setTimeout(function() {
-                        window.location.href = "index.html";
+                       // window.location.href = "profile.html";
+                       event.preventDefault();
                     }, 1000);
                 }
             });
