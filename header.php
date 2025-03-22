@@ -24,7 +24,14 @@
     <div class="login-nav">
         <p>
         <a href="register.html">Register</a> |
-        <a href="login.html">Login</a> |
+        <?php
+        session_start();
+        if (isset($_SESSION['user_id'])){
+          echo "<a href='profile.html'>Login</a> |";
+        }else{
+          echo "<a href='login.html'>Login</a> |";
+        }
+        ?>
         <a href="adminLogin.html">Admin</a></p>
     </div>
     <div class="search-bar">
