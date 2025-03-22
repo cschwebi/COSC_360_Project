@@ -40,7 +40,7 @@
             $("#header").load("header.php");
 
             $("#loginForm").submit(function(event) {
-               // event.preventDefault(); //prevent default form submission
+                event.preventDefault(); //prevent default form submission
 
                 var isValid = true;
 
@@ -65,12 +65,13 @@
                     $("#password").next(".error-message").hide();
                 }
 
-                if (!isValid) {
+                if (isValid) {
                     // Simulate a successful login
-                    setTimeout(function() {
-                       // window.location.href = "profile.html";
-                       event.preventDefault();
-                    }, 1000);
+                    // setTimeout(function() {
+                    //    // window.location.href = "profile.html";
+                    //    event.preventDefault();
+                    // }, 1000);
+                    event.target.submit();
                 }
             });
 

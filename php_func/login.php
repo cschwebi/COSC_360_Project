@@ -39,10 +39,11 @@ if (!isset($_SESSION['user_id'])){
             // Failed login: Optionally, you can redirect back with an error message
             // For now, we'll just show an error
             echo "<p>Invalid email or password. Please try again.<p></br>";
+            header("Location: ..\login.html");
         }
     } else {
         // If not a POST request, redirect to login page
-        header("Location: login.php");
+        header("Location: ..\ogin.html");
         exit;
     }
 }else{
