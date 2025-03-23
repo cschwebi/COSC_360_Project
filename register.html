@@ -18,7 +18,7 @@
     
     <div class="form-container">
         <h2>Register</h2>
-        <form id="registerForm">
+        <form id="registerForm" action="php_func/register.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="fullName">Full Name</label>
                 <input type="text" id="fullName" name="fullName">
@@ -55,7 +55,7 @@
             $("#header").load("header.php");
 
             $("#registerForm").submit(function(event) {
-                //event.preventDefault(); 
+                event.preventDefault(); 
 
                 var isValid = true;
 
@@ -119,12 +119,13 @@
                     $("#profilePicture").next(".error-message").hide();
                 }
 
-                if (!isValid) {
+                if (isValid) {
                     // Simulate a successful submission
-                    setTimeout(function() {
-                        //window.location.href = "profile.html";
-                        event.preventDefault();
-                    }, 1000);
+                    // setTimeout(function() {
+                    //     //window.location.href = "profile.html";
+                    //     event.preventDefault();
+                    // }, 1000);
+                    event.target.submit();
                 }
             });
 
