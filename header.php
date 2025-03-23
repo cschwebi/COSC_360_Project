@@ -20,7 +20,7 @@
 <body>
 <header>
   <div class="top-header">
-    <h1><a href="index.html">CC Blogs</a></h1>
+    <h1><a href="index.php">CC Blogs</a></h1>
     <div class="login-nav">
         <p>
         <a href="register.html">Register</a> |

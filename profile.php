@@ -12,7 +12,7 @@
     <div id="header"></div>
     
     <div class="profile-container">
-        <div class="breadcrumb"><a href="index.html">Home</a> > Profile</div>
+        <div class="breadcrumb"><a href="index.php">Home</a> > Profile</div>
         <div class="profile-info">
             <?php
                 session_start();
