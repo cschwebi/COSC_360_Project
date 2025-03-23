@@ -5,6 +5,7 @@ define('DB_NAME', 'blogDB');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
+define('IMAGE_PATH', "/uploads/");
 
 // Construct DSN (Data Source Name)
 define('DB_DSN', "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET);

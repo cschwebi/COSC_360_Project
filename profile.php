@@ -18,7 +18,7 @@
                 session_start();
                 if (isset($_SESSION['user_id'])){
                     if (isset($_SESSION['profileImage']) && !empty($_SESSION['profileImage']) && $_SESSION['profileImage'] != null) {
-                        echo '<img src="' . htmlspecialchars($_SESSION['profileImage']) . '" alt="Profile Photo">';
+                        echo '<img src="' . '../COSC_360_Project' . $_SESSION['profileImage'] . '"  style="width: 200px; height: 150px;" alt="Profile Photo">';
                     } else {
                         echo '<div class="profile-photo">Profile Photo</div>';
                     }
