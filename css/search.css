@@ -1,0 +1,125 @@
+.search-header {
+    margin-bottom: 2rem;
+}
+.search-header h2 {
+    margin: 0;
+    color: #2e2f59;
+}
+.search-header p {
+    color: #666;
+    margin: 0.5rem 0 0 0;
+}
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.filter-panel {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+.filter-panel form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+}
+.filter-panel .search-group {
+    flex: 2;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.filter-panel .category-group {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+    top: .5em;
+}
+.filter-panel .search-field-group {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+.filter-panel label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2e2f59;
+    font-weight: bold;
+}
+.filter-panel input[type="text"],
+.filter-panel select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+.filter-panel button {
+    padding: 0.5rem 1.5rem;
+    background: #2e2f59;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    height: 2.5rem;
+    align-self: flex-end;
+}
+.filter-panel button:hover {
+    background: #11122f;
+}
+.active-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.active-filters .filter-tag {
+    background: #e0e7fa;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    color: #2e2f59;
+}
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.radio-option input[type="radio"] {
+    margin: 0;
+}
+.radio-option label {
+    margin: 0;
+    font-weight: normal;
+}
+.load-more {
+    display: block;
+    width: 200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #2e2f59;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+.load-more:hover {
+    background: #11122f;
+}
+.load-more.hidden {
+    display: none;
+}
