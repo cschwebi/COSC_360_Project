@@ -6,6 +6,8 @@ require_once 'php_func/configure.php';
 $search_query = isset($_GET['search']) ? trim($_GET['search']) : '';
 $category = isset($_GET['category']) ? trim($_GET['category']) : '';
 $search_field = isset($_GET['search_field']) ? trim($_GET['search_field']) : 'title';
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$per_page = 12;
 
 try {
     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
@@ -45,11 +47,23 @@ try {
         // Add order by
         $sql .= " ORDER BY b.created_at DESC";
         
+        // First get total count
+        $count_sql = "SELECT COUNT(*) FROM (" . $sql . ") as count_query";
+        $count_stmt = $pdo->prepare($count_sql);
+        $count_stmt->execute($params);
+        $total_results = $count_stmt->fetchColumn();
+        
+        // Add limit and offset
+        $sql .= " LIMIT :limit OFFSET :offset";
+        $params[':limit'] = $per_page;
+        $params[':offset'] = ($page - 1) * $per_page;
+        
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
         $blogs = $stmt->fetchAll();
     } else {
         $blogs = [];
+        $total_results = 0;
     }
 } catch (PDOException $e) {
     $error = "Database connection failed: " . $e->getMessage();
@@ -69,107 +83,8 @@ $categories = [
     <title>Search Results - CC Blogs</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/search.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .search-header {
-            margin-bottom: 2rem;
-        }
-        .search-header h2 {
-            margin: 0;
-            color: #2e2f59;
-        }
-        .search-header p {
-            color: #666;
-            margin: 0.5rem 0 0 0;
-        }
-        .no-results {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .filter-panel {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-        .filter-panel form {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: flex-end;
-        }
-        .filter-panel .search-group {
-            flex: 2;
-            min-width: 250px;
-        }
-        .filter-panel .category-group {
-            flex: 1;
-            min-width: 200px;
-        }
-        .filter-panel .search-field-group {
-            flex: 2;
-            min-width: 250px;
-        }
-        .filter-panel label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #2e2f59;
-            font-weight: bold;
-        }
-        .filter-panel input[type="text"],
-        .filter-panel select {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 0.25rem;
-            font-size: 1rem;
-        }
-        .filter-panel button {
-            padding: 0.5rem 1.5rem;
-            background: #2e2f59;
-            color: white;
-            border: none;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            height: 2.5rem;
-        }
-        .filter-panel button:hover {
-            background: #11122f;
-        }
-        .active-filters {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .active-filters .filter-tag {
-            background: #e0e7fa;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.9rem;
-            color: #2e2f59;
-        }
-        .radio-group {
-            display: flex;
-            gap: 1.5rem;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .radio-option input[type="radio"] {
-            margin: 0;
-        }
-        .radio-option label {
-            margin: 0;
-            font-weight: normal;
-        }
-    </style>
 </head>
 <body>
     <!-- Include Header -->
@@ -189,6 +104,26 @@ $categories = [
                             <input type="text" id="search" name="search" 
                                    value="<?php echo htmlspecialchars($search_query); ?>" 
                                    placeholder="Enter keywords...">
+                            <div class="search-field-group">
+                                <label>Search In</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="search_title" name="search_field" value="title" 
+                                               <?php echo ($search_field === 'title' || empty($search_field)) ? 'checked' : ''; ?>>
+                                        <label for="search_title">Blog Title</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="search_content" name="search_field" value="content"
+                                               <?php echo $search_field === 'content' ? 'checked' : ''; ?>>
+                                        <label for="search_content">Blog Content</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="search_author" name="search_field" value="author"
+                                               <?php echo $search_field === 'author' ? 'checked' : ''; ?>>
+                                        <label for="search_author">Author Name</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="category-group">
                             <label for="category">Category</label>
@@ -201,26 +136,6 @@ $categories = [
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                        </div>
-                        <div class="search-field-group">
-                            <label>Search In</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="search_title" name="search_field" value="title" 
-                                           <?php echo ($search_field === 'title' || empty($search_field)) ? 'checked' : ''; ?>>
-                                    <label for="search_title">Blog Title</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="search_content" name="search_field" value="content"
-                                           <?php echo $search_field === 'content' ? 'checked' : ''; ?>>
-                                    <label for="search_content">Blog Content</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="search_author" name="search_field" value="author"
-                                           <?php echo $search_field === 'author' ? 'checked' : ''; ?>>
-                                    <label for="search_author">Author Name</label>
-                                </div>
-                            </div>
                         </div>
                         <button type="submit">Search</button>
                     </form>
@@ -281,6 +196,18 @@ $categories = [
                             </div>
                         </article>
                     <?php endforeach; ?>
+                    
+                    <?php if ($total_results > $page * $per_page): ?>
+                        <form method="get" action="search.php" class="load-more-form">
+                            <input type="hidden" name="search" value="<?php echo htmlspecialchars($search_query); ?>">
+                            <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>">
+                            <input type="hidden" name="search_field" value="<?php echo htmlspecialchars($search_field); ?>">
+                            <input type="hidden" name="page" value="<?php echo $page + 1; ?>">
+                            <button type="submit" class="load-more">
+                                Load More Results <br> (<?php echo $total_results - ($page * $per_page); ?> remaining)
+                            </button>
+                        </form>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
 
