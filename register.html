@@ -18,7 +18,7 @@
     
     <div class="form-container">
         <h2>Register</h2>
-        <form id="registerForm">
+        <form id="registerForm" action="php_func/register.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="fullName">Full Name</label>
                 <input type="text" id="fullName" name="fullName">
@@ -121,9 +121,11 @@
 
                 if (isValid) {
                     // Simulate a successful submission
-                    setTimeout(function() {
-                        window.location.href = "profile.html";
-                    }, 1000);
+                    // setTimeout(function() {
+                    //     //window.location.href = "profile.html";
+                    //     event.preventDefault();
+                    // }, 1000);
+                    event.target.submit();
                 }
             });
 
