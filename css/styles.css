@@ -64,7 +64,7 @@ main {
 /* Trending Topics Sidebar */
 .trending-topics {
     flex: 1;
-    background: #fdf7d8;
+    background: #e0e7fa;
     padding: 15px;
     border-radius: 8px;
 }

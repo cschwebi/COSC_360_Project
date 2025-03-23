@@ -6,7 +6,7 @@ try {
     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
     
     // Fetch 5 most recent blogs with title, content preview, and image
-    $sql = "SELECT b.id, b.title, b.content, b.image, b.created_at, u.fullName as author 
+    $sql = "SELECT b.id, b.title, b.content, b.image, b.created_at, b.topic, u.fullName as author 
             FROM blogs b 
             JOIN users u ON b.author_id = u.id 
             ORDER BY b.created_at DESC 
@@ -58,7 +58,8 @@ try {
             margin: 0 0 10px 0;
         }
         .blog-title:hover {
-            color: #1a1b3f;
+            color:#11122f;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -86,13 +87,14 @@ try {
                                 </h3>
                                 <div class="blog-meta">
                                     By <?php echo htmlspecialchars($blog['author']); ?> | 
-                                    <?php echo date('F j, Y', strtotime($blog['created_at'])); ?>
+                                    <?php echo date('F j, Y', strtotime($blog['created_at'])); ?> |
+                                    <?php echo htmlspecialchars($blog['topic']); ?>
                                 </div>
                                 <p><?php 
                                     // Get first 100 words
                                     $words = str_word_count(strip_tags($blog['content']), 2);
                                     $first100 = implode(' ', array_slice(array_values($words), 0, 50));
-                                    echo htmlspecialchars($first100) . (count($words) > 100 ? '...' : '');
+                                    echo htmlspecialchars($first100) . '...' ;
                                 ?></p>
                             </div>
                             <div class="blog-image">
