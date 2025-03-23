@@ -25,43 +25,6 @@ try {
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        h2 a {
-            color: #2e2f59;
-            text-decoration: none;
-        }
-        .blog-image img {
-            max-width: 200px;
-            height: auto;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        .blog {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .blog-text {
-            flex: 1;
-        }
-        .blog-meta {
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-        .blog-title {
-            color: #2e2f59;
-            text-decoration: none;
-            margin: 0 0 10px 0;
-        }
-        .blog-title:hover {
-            color:#11122f;
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
 

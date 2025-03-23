@@ -15,7 +15,7 @@ main {
 .content {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 /* Blogs Section */
@@ -25,77 +25,117 @@ main {
 
 .blog {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.875rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     background: white;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
 }
 
 .blog-text {
     flex: 2;
 }
 
-.blog-text h3 a {
-    color: #2e2f59;
-    font-size: 1.2rem;
-    text-decoration: none;
+.blog-text h3 {
+    margin: 0 0 0.625rem 0;
 }
 
 .blog-text p {
     font-size: 1rem;
     color: #333;
+    line-height: 1.5;
+    margin: 0.625rem 0;
+}
+
+.blog-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.625rem;
+}
+
+.blog-title {
+    color: #2e2f59;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.blog-title:hover {
+    color: #11122f;
+    text-decoration: underline;
 }
 
 .blog-image {
     flex: 1;
-    background: #ccc;
-    width: 150px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    text-align: center;
-    border-radius: 5px;
+    min-width: 200px; /* Maintain minimum size for readability */
+}
+
+.blog-image img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0.5rem;
 }
 
 /* Trending Topics Sidebar */
 .trending-topics {
     flex: 1;
     background: #e0e7fa;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
 }
 
 .trending-topics h2 {
     font-size: 1.5rem;
-    color: black;
+    margin-top: 0;
+}
+
+.trending-topics h2 a {
+    color: #2e2f59;
+    text-decoration: none;
 }
 
 .trending-topics ol {
     list-style-position: inside;
+    list-style: none;
+    text-align: center;
     padding: 0;
+    margin: 0;
+}
+
+.trending-topics ol li {
+    margin: 0.5rem 0;
 }
 
 .trending-topics ol li a {
     text-decoration: none;
-    color: blue;
+    color: #2e2f59;
     font-size: 1rem;
+    transition: color 0.2s ease;
 }
 
-.blog-post {
-    border-bottom: 1px solid #ccc;
-    padding: 20px 0;
+.trending-topics ol li a:hover {
+    color: #11122f;
+    text-decoration: underline;
 }
 
-.blog-post img {
-    max-width: 100%;
-    height: auto;
-}
-
-#trending-topics li {
-    list-style: none;
-    margin: 5px 0;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+    
+    .blog {
+        flex-direction: column;
+    }
+    
+    .blog-image {
+        order: -1; /* Show image first on mobile */
+    }
+    
+    .blog-image img {
+        max-width: 100%;
+    }
 }
