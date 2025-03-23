@@ -14,6 +14,6 @@ foreach ($files as $file) {
 
 
 var_dump($_SESSION);
-header("Location: ../index.html");
+header("Location: ../index.php");
 exit;
 ?>

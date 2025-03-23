@@ -32,7 +32,7 @@ if (!isset($_SESSION['user_id'])){
             $_SESSION['role']         = $userRecord['role'];
             $_SESSION['created_at']   = $userRecord['created_at'];
             $_SESSION['updated_at']   = $userRecord['updated_at'];
-            // Redirect to a protected page, e.g., profile.php or index.html
+            // Redirect to a protected page, e.g., profile.php or index.php
             header("Location: ..\profile.php");
             exit;
         } else {
@@ -47,7 +47,7 @@ if (!isset($_SESSION['user_id'])){
         exit;
     }
 }else{
-    header("Location: index.html");
+    header("Location: index.php");
     exit;
 }
 ?>

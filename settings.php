@@ -98,20 +98,21 @@
         <div id="header"></div>
 
         <div class="breadcrumb-filter">
-            <div class="breadcrumb"><a href="index.php">Home</a> > Settings</div>
+            <div class="breadcrumb"><a href="index.html">Home</a> > Settings</div>
         </div>
 
         <div class="tabs">
-            <button class="tab-link active" data-tab="Customization">Customization</button>
-            <button class="tab-link" data-tab="User">User</button>
+            <button class="tab-link" data-tab="Customization">Customization</button>
+            <button class="tab-link active" data-tab="User">User</button>
             <div class="slider"></div>
-          </div>
-        
-          <div class="tab-content" id="Customization">
+        </div>
+
+          <!-- Hide the Customization tab and show the User tab by default -->
+          <div class="tab-content" id="Customization" style="display: none;">
             <button id="dark-mode-toggle">Toggle Dark Mode</button>
           </div>
-        
-          <div class="tab-content" id="User" style="display: none;">
+
+          <div class="tab-content" id="User" style="display: block;">
             <form id="user-settings-form">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username">
@@ -139,7 +140,6 @@
             </form>
           </div>
 
-        
           <script>
             $(document).ready(function () {
             $("#header").load("header.php");
