@@ -2,6 +2,13 @@
 <?php
 require_once 'php_func/configure.php';
 
+// Define categories array (matching search.php)
+$categories = [
+    'Finance', 'Health', 'Technology', 'Travel', 
+    'Productivity', 'Food', 'Business', 'Parenting', 
+    'Education', 'Entertainment', 'Other'
+];
+
 try {
     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
     
@@ -70,20 +77,16 @@ try {
             </div>
 
             <aside class="trending-topics">
-                <h2><a href="trending.html">Trending Topics</a></h2>
+                <h2>Trending Topics</h2>
                 <ol>
-                    <li><a href="trending.html?category=finance">Finance</a></li>
-                    <li><a href="trending.html?category=health">Health</a></li>
-                    <li><a href="trending.html?category=technology">Technology</a></li>
-                    <li><a href="trending.html?category=travel">Travel</a></li>
-                    <li><a href="trending.html?category=productivity">Productivity</a></li>
-                    <li><a href="trending.html?category=food">Food</a></li>
-                    <li><a href="trending.html?category=business">Business</a></li>
-                    <li><a href="trending.html?category=parenting">Parenting</a></li>
-                    <li><a href="trending.html?category=education">Education</a></li>
-                    <li><a href="trending.html?category=entertainment">Entertainment</a></li>
-                    <li><a href="trending.html?category=other">Other</a></li>
-                  </ol>
+                    <?php foreach ($categories as $cat): ?>
+                        <li>
+                            <a href="search.php?category=<?php echo urlencode($cat); ?>">
+                                <?php echo htmlspecialchars($cat); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
             </aside>
         </section>
     </main>

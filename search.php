@@ -12,13 +12,15 @@ $per_page = 12;
 try {
     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
     
+    // Base query
+    $sql = "SELECT b.id, b.title, b.content, b.image, b.created_at, b.topic, u.fullName as author 
+            FROM blogs b 
+            JOIN users u ON b.author_id = u.id";
+    $params = array();
+    
+    // Add WHERE clause only if search or category filters are applied
     if (!empty($search_query) || !empty($category)) {
-        // Base query
-        $sql = "SELECT b.id, b.title, b.content, b.image, b.created_at, b.topic, u.fullName as author 
-                FROM blogs b 
-                JOIN users u ON b.author_id = u.id 
-                WHERE 1=1";
-        $params = array();
+        $sql .= " WHERE 1=1";
         
         // Add search condition if search term exists
         if (!empty($search_query)) {
@@ -43,17 +45,24 @@ try {
             $sql .= " AND b.topic = :category";
             $params[':category'] = $category;
         }
-        
-        // Add order by
-        $sql .= " ORDER BY b.created_at DESC";
-        
-        // First get total count
-        $count_sql = "SELECT COUNT(*) FROM (" . $sql . ") as count_query";
-        $count_stmt = $pdo->prepare($count_sql);
-        $count_stmt->execute($params);
-        $total_results = $count_stmt->fetchColumn();
-        
-        // Add limit and offset
+    }
+    
+    // Add order by
+    $sql .= " ORDER BY b.created_at DESC";
+    
+    // First get total count
+    $count_sql = "SELECT COUNT(*) FROM (" . $sql . ") as count_query";
+    $count_stmt = $pdo->prepare($count_sql);
+    $count_stmt->execute($params);
+    $total_results = $count_stmt->fetchColumn();
+    
+    // Add limit and offset
+    if (empty($search_query) && empty($category)) {
+        // Show first 100 blogs when no filters are applied
+        $sql .= " LIMIT 100";
+        $blogs = $pdo->query($sql)->fetchAll();
+    } else {
+        // Use pagination for filtered results
         $sql .= " LIMIT :limit OFFSET :offset";
         $params[':limit'] = $per_page;
         $params[':offset'] = ($page - 1) * $per_page;
@@ -61,9 +70,6 @@ try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
         $blogs = $stmt->fetchAll();
-    } else {
-        $blogs = [];
-        $total_results = 0;
     }
 } catch (PDOException $e) {
     $error = "Database connection failed: " . $e->getMessage();
@@ -162,15 +168,16 @@ $categories = [
 
                 <?php if (isset($error)): ?>
                     <p class="error"><?php echo htmlspecialchars($error); ?></p>
-                <?php elseif (empty($search_query) && empty($category)): ?>
-                    <div class="no-results">
-                        <p>Please enter a search term or select a category to find blogs.</p>
-                    </div>
                 <?php elseif (empty($blogs)): ?>
                     <div class="no-results">
                         <p>No blogs found matching your criteria.</p>
                     </div>
                 <?php else: ?>
+                    <?php if (empty($search_query) && empty($category)): ?>
+                        <div class="search-info">
+                            <p>Showing 100 most recent blogs</p>
+                        </div>
+                    <?php endif; ?>
                     <?php foreach ($blogs as $blog): ?>
                         <article class="blog">
                             <div class="blog-text">
@@ -212,12 +219,16 @@ $categories = [
             </div>
 
             <aside class="trending-topics">
-                <h2><a href="trending.html">Trending Topics</a></h2>
+                <h2>Trending Topics</h2>
                 <ol>
                     <?php foreach ($categories as $cat): ?>
                         <li>
-                            <a href="search.php?category=<?php echo urlencode($cat); ?>">
+                            <a href="search.php?category=<?php echo urlencode($cat); ?>" 
+                               class="<?php echo $category === $cat ? 'active' : ''; ?>">
                                 <?php echo htmlspecialchars($cat); ?>
+                                <?php if ($category === $cat): ?>
+                                    <span class="active-indicator">•</span>
+                                <?php endif; ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
