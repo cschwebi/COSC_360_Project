@@ -49,12 +49,12 @@
           //session_start();
           if (isset($_SESSION['user_id'])){
             echo "<li><a href='settings.html'>Settings</a></li>";
-            echo "<li><a href='authors.html'>Authors</a></li>";
+            echo "<li><a href='authors.php'>Authors</a></li>";
             echo "<li><a href='favourites.html'>Favourites</a></li>";
             echo "<li><a href='profile.php'>Profile</a></li>";
           }else{
             echo "<li><a href='login.html'>Settings</a></li>";
-            echo "<li><a href='authors.html'>Authors</a></li>";
+            echo "<li><a href='authors.php'>Authors</a></li>";
             echo "<li><a href='login.html'>Favourites</a></li>";
             echo "<li><a href='login.html'>Profile</a></li>";
           }
