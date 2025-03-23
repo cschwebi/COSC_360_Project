@@ -115,3 +115,12 @@ INSERT INTO blogs (title, content, image, topic, author_id, like_count) VALUES
     2,
     198
 ); 
+
+-- Insert some dummy comments
+INSERT INTO comments (blog_id, user_id, content) VALUES
+(11, 2, 'Great insights on the future of web development!'),
+(12, 3, 'I completely agree, especially with the AI integration.'),
+(12, 1, 'This guide is really helpful for small businesses.'),
+(13, 2, 'I struggle with remote work too, thanks for the tips!'),
+(14, 3, 'Modern education is evolving fast—interesting read!'),
+(15, 1, 'I love how technology is reshaping entertainment!');

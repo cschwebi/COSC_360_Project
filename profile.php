@@ -50,7 +50,7 @@
             <div class="post">
                 <article class="blog">
                     <div class="blog-text">
-                        <h3><a href="blogpage.html">Example Blog</a></h3>
+                        <h3><a href="blogpage.php">Example Blog</a></h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
                     </div>
                     <div class="blog-image">COVER IMAGE FROM BLOG</div>
@@ -59,7 +59,7 @@
             <div class="post">
                 <article class="blog">
                     <div class="blog-text">
-                        <h3><a href="blogpage.html">Example Blog</a></h3>
+                        <h3><a href="blogpage.php">Example Blog</a></h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
                     </div>
                     <div class="blog-image">COVER IMAGE FROM BLOG</div>
@@ -68,7 +68,7 @@
             <div class="post">
                 <article class="blog">
                     <div class="blog-text">
-                        <h3><a href="blogpage.html">Example Blog</a></h3>
+                        <h3><a href="blogpage.php">Example Blog</a></h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
                     </div>
                     <div class="blog-image">COVER IMAGE FROM BLOG</div>
@@ -80,7 +80,7 @@
                 <div class="comment-blog">
                     <article class="blog">
                         <div class="blog-text">
-                            <h3><a href="blogpage.html">Example Blog</a></h3>
+                            <h3><a href="blogpage.php">Example Blog</a></h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
                         </div>
                         <div class="blog-image">COVER IMAGE FROM BLOG</div>
@@ -94,7 +94,7 @@
                 <div class="comment-blog">
                     <article class="blog">
                         <div class="blog-text">
-                            <h3><a href="blogpage.html">Example Blog</a></h3>
+                            <h3><a href="blogpage.php">Example Blog</a></h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat efficitur mauris eget sodales. Nulla ac fringilla metus. In sollicitudin velit ac mattis lobortis...</p>
                         </div>
                         <div class="blog-image">COVER IMAGE FROM BLOG</div>
