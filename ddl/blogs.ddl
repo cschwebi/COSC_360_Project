@@ -71,9 +71,17 @@ INSERT INTO users (fullName, email, password, profileImage, bio, role) VALUES
     './img/default.png',
     'UI/UX designer with a passion for creating beautiful and functional web experiences.',
     'user'
+),
+(
+    'Emma Wilson',
+    'emma.wilson@email.com',
+    'password123',
+    './img/default.png',
+    'Health and wellness expert with a focus on mental health and work-life balance.',
+    'user'
 );
 
--- Now let's create some blog posts
+
 INSERT INTO blogs (title, content, image, topic, author_id, like_count) VALUES
 (
     'The Future of Web Development in 2024',
@@ -114,6 +122,71 @@ INSERT INTO blogs (title, content, image, topic, author_id, like_count) VALUES
     'Entertainment',
     2,
     198
+
+),
+(
+    'Mindful Eating: A Guide to Healthy Food Habits',
+    'Discover the principles of mindful eating and how it can transform your relationship with food. This comprehensive guide explores the psychology behind eating habits, practical tips for mindful meal planning, and the benefits of conscious food choices. Learn about portion control, nutritional balance, and how to develop a healthy relationship with food that lasts a lifetime. We''ll also discuss common challenges and provide actionable strategies for maintaining healthy eating habits in today''s fast-paced world.',
+    './img/blog.png',
+    'Health',
+    4,
+    145
+),
+(
+    'Financial Planning for Young Professionals',
+    'Navigate the complexities of personal finance with this comprehensive guide tailored for young professionals. From budgeting basics to investment strategies, learn how to build a strong financial foundation early in your career. We''ll cover essential topics like emergency funds, retirement planning, and debt management. Discover practical tips for saving money, making smart investments, and planning for long-term financial security in today''s economic landscape.',
+    './img/blog.png',
+    'Finance',
+    1,
+    267
+),
+(
+    'The Art of Travel Photography',
+    'Elevate your travel photography skills with this in-depth guide to capturing memorable moments on your journeys. Learn about essential camera techniques, composition rules, and post-processing tips that will help you create stunning travel photographs. We''ll explore how to tell stories through images, capture local culture, and make the most of different lighting conditions. Whether you''re using a professional camera or smartphone, these tips will help you document your travels beautifully.',
+    './img/blog.png',
+    'Travel',
+    3,
+    178
+),
+(
+    'Modern Parenting in a Digital World',
+    'Navigate the challenges of raising children in today''s technology-driven world. This guide addresses common concerns about screen time, online safety, and digital literacy for children of all ages. Learn practical strategies for setting healthy boundaries, promoting positive technology use, and maintaining open communication with your children about digital media. We''ll also explore educational technology resources and tools that can support your child''s development.',
+    './img/blog.png',
+    'Parenting',
+    4,
+    203
+),
+(
+    'Sustainable Business Practices for 2024',
+    'Explore how businesses can thrive while maintaining environmental responsibility. This comprehensive guide covers sustainable business strategies, green technologies, and eco-friendly operational practices. Learn about reducing carbon footprints, implementing recycling programs, and creating environmentally conscious supply chains. We''ll also discuss the business benefits of sustainability and how to effectively communicate your green initiatives to stakeholders and customers.',
+    './img/blog.png',
+    'Business',
+    2,
+    189
+),
+(
+    'Quick and Healthy Meal Prep Ideas',
+    'Transform your weekly meal planning with these efficient and nutritious meal prep strategies. Discover time-saving techniques, budget-friendly recipes, and tips for maintaining food quality throughout the week. Learn how to create balanced meals, store food properly, and avoid common meal prep pitfalls. We''ll also share shopping lists, storage solutions, and creative ways to keep your meal prep interesting and delicious.',
+    './img/blog.png',
+    'Food',
+    4,
+    221
+),
+(
+    'Maximizing Productivity with AI Tools',
+    'Harness the power of artificial intelligence to boost your daily productivity. This guide explores the latest AI tools and technologies that can streamline your workflow and automate routine tasks. Learn about AI-powered project management, content creation, data analysis, and personal organization tools. We''ll also discuss how to integrate these tools effectively while maintaining a human-centered approach to work.',
+    './img/blog.png',
+    'Productivity',
+    1,
+    256
+),
+(
+    'The Evolution of Online Learning',
+    'Explore the transformative impact of digital technology on education and learning methodologies. This comprehensive analysis covers the latest trends in online education, including adaptive learning systems, gamification, and personalized learning paths. Learn about the most effective online learning strategies, tools for virtual collaboration, and ways to maintain engagement in digital classrooms. We''ll also examine case studies of successful online learning implementations and their implications for the future of education.',
+    './img/blog.png',
+    'Education',
+    3,
+    198
 ); 
 
 -- Insert some dummy comments
@@ -124,3 +197,4 @@ INSERT INTO comments (blog_id, user_id, content) VALUES
 (13, 2, 'I struggle with remote work too, thanks for the tips!'),
 (14, 3, 'Modern education is evolving fast—interesting read!'),
 (15, 1, 'I love how technology is reshaping entertainment!');
+

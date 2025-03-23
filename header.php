@@ -35,8 +35,8 @@
         <a href="adminLogin.html">Admin</a></p>
     </div>
     <div class="search-bar">
-      <form id="searchForm" method="get" action="http://www.randyconnolly.com/tests/process.php">
-        <input type="text" name="search" placeholder="Search blogs">
+      <form id="searchForm" method="get" action="search.php">
+        <input type="text" name="search" placeholder="Search blogs" required>
         <button type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>

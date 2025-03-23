@@ -121,6 +121,47 @@ main {
     text-decoration: underline;
 }
 
+/* Add trending topics styles */
+.trending-topics a {
+    text-decoration: none;
+    color: #2e2f59;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+}
+
+.trending-topics a:hover {
+    background-color: #e0e7fa;
+}
+
+.trending-topics a.active {
+    background-color: #e0e7fa;
+    font-weight: bold;
+}
+
+.trending-topics .active-indicator {
+    color: #2e2f59;
+    font-weight: bold;
+}
+
+.trending-topics ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.trending-topics li {
+    margin-bottom: 0.5rem;
+}
+
+.trending-topics h2 {
+    color: #2e2f59;
+    margin-bottom: 1rem;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .content {
