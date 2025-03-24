@@ -43,7 +43,7 @@ if (!isset($_SESSION['user_id'])){
         }
     } else {
         // If not a POST request, redirect to login page
-        header("Location: ..\ogin.html");
+        header("Location: ..\login.html");
         exit;
     }
 }else{

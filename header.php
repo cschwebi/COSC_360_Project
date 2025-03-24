@@ -32,7 +32,7 @@
           echo "<a href='login.html'>Login</a> |";
         }
         ?>
-        <a href="adminLogin.html">Admin</a></p>
+        <a href="adminLogin.php">Admin</a></p>
     </div>
     <div class="search-bar">
       <form id="searchForm" method="get" action="search.php">
