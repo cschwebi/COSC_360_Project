@@ -2,8 +2,8 @@
 // Database Configuration Constants
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'blogDB');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_USER', 'clewendo');
+define('DB_PASS', 'pass');
 define('DB_CHARSET', 'utf8mb4');
 define('IMAGE_PATH', "/uploads/");
 
