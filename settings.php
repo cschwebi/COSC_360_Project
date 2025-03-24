@@ -113,8 +113,8 @@
           </div>
 
           <div class="tab-content" id="User" style="display: block;">
-            <form id="user-settings-form">
-                <label for="username">Username</label>
+            <form id="user-settings-form" action="php_func/editProfile.php" method="post">
+                <label for="username">Name</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username">
                 
                 <label for="email">Email</label>
@@ -130,7 +130,7 @@
                 <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"></textarea>
                 
                 <label for="profile-picture">Profile Picture URL</label>
-                <input type="text" id="profile-picture" name="profile-picture" placeholder="Link to your profile picture">
+                <input type="file" id="profile-picture" name="profile-picture" placeholder="Link to your profile picture">
                 
                 <input type="submit" value="Save Changes">
             </form>
@@ -186,5 +186,76 @@
               }
             });
           </script>
+          <script>
+      $(document).ready(function () {
+        $("#header").load("header.php");
+
+        const $form = $("#user-settings-form").first(); //target only the update form
+
+        $form.submit(function (event) {
+          event.preventDefault(); //always prevent first
+
+          let isValid = true;
+
+          //validate username (optional)
+          const username = $("#username").val().trim();
+          if (username !== "" && username.length < 2) {
+            isValid = false;
+            $("#username").addClass("error").next(".error-message").show();
+          } else {
+            $("#username").removeClass("error").next(".error-message").hide();
+          }
+
+          //Validate email (optional)
+          const email = $("#email").val().trim();
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (email !== "" && !emailPattern.test(email)) {
+            isValid = false;
+            $("#email").addClass("error").next(".error-message").show();
+          } else {
+            $("#email").removeClass("error").next(".error-message").hide();
+          }
+
+          //Validate password (optional)
+          const password = $("#password").val().trim();
+          const confirmPassword = $("#confirm-password").val().trim();
+          if (password !== "" && (password.length < 6 || password !== confirmPassword)) {
+            isValid = false;
+            $("#password, #confirm-password").addClass("error");
+            if (password.length < 6) {
+              $("#password").next(".error-message").text("Password must be at least 6 characters.").show();
+            } else {
+              $("#password").next(".error-message").hide();
+            }
+            if (password !== confirmPassword) {
+              $("#confirm-password").next(".error-message").text("Passwords must match.").show();
+            }
+          } else {
+            $("#password, #confirm-password").removeClass("error");
+            $("#password").next(".error-message").hide();
+            $("#confirm-password").next(".error-message").hide();
+          }
+
+          //validate profile picture URL (optional)
+          const profilePic = $("#profile-picture").val().trim();
+          if (profilePic !== "" && !/\.(jpeg|jpg|png)$/i.test(profilePic)) {
+            isValid = false;
+            $("#profile-picture").addClass("error").next(".error-message").show();
+          } else {
+            $("#profile-picture").removeClass("error").next(".error-message").hide();
+          }
+
+          //submit if valid
+          if (isValid) {
+            this.submit(); //allow form submission
+          }
+        });
+
+        //clean up on input
+        $("#user-settings-form input, #user-settings-form textarea").on("input", function () {
+          $(this).removeClass("error").next(".error-message").hide();
+        });
+      });
+    </script>
     </body>
 </html>
