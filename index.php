@@ -2,7 +2,7 @@
 <?php
 require_once 'php_func/configure.php';
 
-// Define categories array (matching search.php)
+//Define categories array (matching search.php)
 $categories = [
     'Finance', 'Health', 'Technology', 'Travel', 
     'Productivity', 'Food', 'Business', 'Parenting', 
@@ -12,7 +12,7 @@ $categories = [
 try {
     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
     
-    // Fetch 5 most recent blogs with title, content preview, and image
+    //Fetch 5 most recent blogs with title, content preview, and image
     $sql = "SELECT b.id, b.title, b.content, b.image, b.created_at, b.topic, u.fullName as author 
             FROM blogs b 
             JOIN users u ON b.author_id = u.id 

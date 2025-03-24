@@ -5,18 +5,18 @@ if (!isset($_SESSION['user_id'])){
     session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Retrieve and sanitize input
+        //Retrieve and sanitize input
         $email = trim($_POST['email']);
         $password = trim($_POST['password']);
 
         try {
             $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
         } catch (PDOException $e) {
-            // In production, log this error instead of displaying it
+            //n production, log this error instead of displaying it
             die("Database connection failed: " . $e->getMessage());
         }
 
-        // Fetch the user from the database
+        // fetch the user from the database
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute([':email' => $email]);
         $userRecord = $stmt->fetch();
@@ -37,12 +37,12 @@ if (!isset($_SESSION['user_id'])){
             exit;
         } else {
             // Failed login: Optionally, you can redirect back with an error message
-            // For now, we'll just show an error
+            // For now, we show  error
             echo "<p>Invalid email or password. Please try again.<p></br>";
             header("Location: ..\login.html");
         }
     } else {
-        // If not a POST request, redirect to login page
+        // if not a POST request
         header("Location: ..\login.html");
         exit;
     }

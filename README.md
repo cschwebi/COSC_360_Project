@@ -56,4 +56,4 @@ ccblogs is a blog platform designed for posting, browsing, and managing content 
 ## Notes
 - Profile image editing is still in progress.
 - Favorites table exists but is not fully integrated yet.
-- All uploaded images are stored in ./img/
+- All uploaded images are stored in ./img/ or /uploads/

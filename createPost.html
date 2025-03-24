@@ -96,13 +96,13 @@
             });
         });
 
-        // Hide error message on input
+        //hide error message on input
         $("#title, #body, #topic").on("input", function() {
             $(this).removeClass("error");
             $(this).next(".error-message").hide();
         });
 
-        // File type validation
+        //file type validation
         $("#headerImage").change(function() {
             var file = this.files[0];
             if (file) {

@@ -66,7 +66,7 @@ try {
 
         <div class="profile-info">
             <?php
-            // Display profile image if set; otherwise a default placeholder.
+            //Display profile image if set; otherwise a default placeholder.
             if (isset($_SESSION['profileImage']) && !empty($_SESSION['profileImage'])) {
                 echo '<img src="' . '../COSC_360_Project' . $_SESSION['profileImage'] . '"  style="width: 200px; height: 150px;" alt="Profile Photo">';
             } else {
@@ -102,7 +102,7 @@ try {
                                 <h3><a href="blogpage.php?id=<?php echo htmlspecialchars($post['id']); ?>"><?php echo htmlspecialchars($post['title']); ?></a></h3>
                                 <p>
                                     <?php 
-                                        // Display a preview of the post content (first 150 characters)
+                                        // Display a preview of the post content first 150 characters
                                         echo htmlspecialchars(substr(strip_tags($post['content']), 0, 150)) . '...';
                                     ?>
                                 </p>
@@ -143,7 +143,7 @@ try {
                                 <h3><a href="blogpage.php?id=<?php echo htmlspecialchars($like['id']); ?>"><?php echo htmlspecialchars($like['title']); ?></a></h3>
                                 <p>
                                     <?php 
-                                        // Display a preview of the liked blog content
+                                        //Display a preview of the liked blog content
                                         echo htmlspecialchars(substr(strip_tags($like['content']), 0, 150)) . '...';
                                     ?>
                                 </p>

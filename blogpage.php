@@ -2,7 +2,7 @@
 require_once 'php_func/configure.php';
 session_start();
 
-// Check for the blog ID in the URL
+// heck for the blog ID in the URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: index.php");
     exit;
@@ -12,7 +12,7 @@ $blogId = intval($_GET['id']);
 try {
     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
     
-    // Fetch the blog post along with author details
+    //  Fetch the blog post along with author details
     $sql = "SELECT b.*, u.fullName AS author, u.id AS author_id 
             FROM blogs b 
             JOIN users u ON b.author_id = u.id 
