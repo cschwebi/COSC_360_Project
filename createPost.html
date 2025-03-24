@@ -19,20 +19,20 @@
     
     <div class="form-container">
         <h2>Create Post</h2>
-        <form id="createPostForm">
+        <form id="createPostForm" action="php_func/createPost.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title">
+                <input type="text" id="title" name="title" required>
                 <div class="error-message">This section is required</div>
             </div>
             <div class="form-group">
                 <label for="body">Body</label>
-                <textarea id="body" name="body" rows="10"></textarea>
+                <textarea id="body" name="body" rows="10" required></textarea>
                 <div class="error-message">This section is required</div>
             </div>
             <div class="form-group">
                 <label for="topic">Topic</label>
-                <select id="topic" name="topic">
+                <select id="topic" name="topic" required>
                     <option value="">Select a topic</option>
                     <optgroup label="Topics">
                         <option value="Finance">Finance</option>
@@ -51,77 +51,70 @@
                 <div class="error-message">This section is required</div>
             </div>
             <div class="form-group">
-                <label for="headerImage">Header Image</label>
-                <input type="file" id="headerImage" name="headerImage">
-                <input type="hidden" id="defaultHeaderImage" name="defaultHeaderImage" value="path/to/default/image.jpg">
+                <label for="headerImage">Header Image (Optional)</label>
+                <input type="file" id="headerImage" name="headerImage" accept="image/*">
+                <small>Supported formats: JPG, JPEG, PNG, GIF</small>
             </div>
             <div class="form-buttons">
                 <button type="submit">Create Post</button>
-                <button type="button" onclick="window.location.href='profile.html'">Cancel</button>
+                <button type="button" onclick="window.location.href='profile.php'">Cancel</button>
             </div>
         </form>
     </div>
 
     <script>
- $(document).ready(function() {
-    $("#header").load("header.php");
+    $(document).ready(function() {
+        $("#header").load("header.php");
 
-    $("#createPostForm").submit(function(event) {
-        var isValid = true;
-
-        // Validate Title
-        if ($("#title").val().trim() === "") {
-            isValid = false;
-            $("#title").addClass("error");
-            $("#title").next(".error-message").show();
+        $("#createPostForm").submit(function(event) {
             event.preventDefault();
-        } else {
-            $("#title").removeClass("error");
-            $("#title").next(".error-message").hide();
-        }
+            
+            var formData = new FormData(this);
+            
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    try {
+                        var result = JSON.parse(response);
+                        if (result.success) {
+                            alert(result.message);
+                            window.location.href = 'profile.php';
+                        } else {
+                            alert('Error: ' + result.error);
+                        }
+                    } catch (e) {
+                        alert('Error processing response from server');
+                    }
+                },
+                error: function() {
+                    alert('Error submitting form');
+                }
+            });
+        });
 
-        // Validate Body
-        if ($("#body").val().trim() === "") {
-            isValid = false;
-            $("#body").addClass("error");
-            $("#body").next(".error-message").show();
-            event.preventDefault();
-        } else {
-            $("#body").removeClass("error");
-            $("#body").next(".error-message").hide();
-        }
+        // Hide error message on input
+        $("#title, #body, #topic").on("input", function() {
+            $(this).removeClass("error");
+            $(this).next(".error-message").hide();
+        });
 
-        // Validate Topic
-        if ($("#topic").val().trim() === "") {
-            isValid = false;
-            $("#topic").addClass("error");
-            $("#topic").next(".error-message").show();
-            event.preventDefault();
-        } else {
-            $("#topic").removeClass("error");
-            $("#topic").next(".error-message").hide();
-        }
-
-        // Set default header image if none given
-        if ($("#headerImage").val().trim() === "") {
-            $("#headerImage").val($("#defaultHeaderImage").val());
-        }
-
-        // Prevent submission if invalid field
-        if (!isValid) {
-            event.preventDefault();
-        } else {
-            alert("Post created successfully!");
-        }
+        // File type validation
+        $("#headerImage").change(function() {
+            var file = this.files[0];
+            if (file) {
+                var fileType = file.type;
+                var validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!validImageTypes.includes(fileType)) {
+                    alert('Please select a valid image file (JPG, JPEG, PNG, or GIF)');
+                    this.value = '';
+                }
+            }
+        });
     });
-
-    // hide error message on focus
-    $("#title, #body, #topic").on("input", function() {
-        $(this).removeClass("error");
-        $(this).next(".error-message").hide();
-    });
-});
-
     </script>
 </body>
 </html>

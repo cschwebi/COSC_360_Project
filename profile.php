@@ -82,7 +82,7 @@ try {
         <div class="button-container">
             <!-- Link to an edit profile page where user can update profile picture, bio and name -->
             <a href="settings.php"><button>Edit Profile</button></a>
-            <a href="createPost.php"><button>Create Post</button></a>
+            <a href="createPost.html"><button>Create Post</button></a>
         </div>
 
         <!-- Tabs for Posts, Comments, and Likes -->
