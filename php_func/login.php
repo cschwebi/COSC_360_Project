@@ -21,8 +21,10 @@ if (!isset($_SESSION['user_id'])){
         $stmt->execute([':email' => $email]);
         $userRecord = $stmt->fetch();
 
+        $hashed = md5($password);
+
         //if ($userRecord && password_verify($password, $userRecord['password'])) {
-        if ($userRecord && $userRecord['password'] === $password) {
+        if ($userRecord && $userRecord['password'] === $hashed) {
             // Successful login, store necessary data in session
             $_SESSION['user_id']      = $userRecord['id'];
             $_SESSION['displayName']  = $userRecord['fullName'];
