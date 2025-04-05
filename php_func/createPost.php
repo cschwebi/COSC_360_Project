@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 mkdir($upload_dir, 0777, true);
             }
 
-            // Set the new file path
+            // Set the new file path //found the problem lol
             $new_file_name = $blog_id . '.' . $file_extension;
             $upload_path = $upload_dir . $new_file_name;
             $db_image_path = './img/blogimages/' . $new_file_name;

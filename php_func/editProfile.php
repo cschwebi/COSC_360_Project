@@ -41,7 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (in_array($_FILES['profile-picture']['type'], $allowedTypes)) {
             $uploadDir = IMAGE_PATH;
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
-            $uniqueName = time() . '_' . basename($_FILES['profile-picture']['name']);
+            //$uniqueName = time() . '_' . basename($_FILES['profile-picture']['name']);
+            $uniqueName = basename($_FILES['profile-picture']['name']);
             $uploadPath = $uploadDir . $uniqueName;
 
             if (move_uploaded_file($_FILES['profile-picture']['tmp_name'], '../' . $uploadPath)) {

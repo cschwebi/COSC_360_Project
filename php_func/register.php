@@ -33,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepare file upload
     $uploadDir = IMAGE_PATH;
     if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
-    $uniqueName = time() . '_' . basename($profilePicture['name']);
+    //$uniqueName = time() . '_' . basename($profilePicture['name']);
+    $uniqueName = basename($profilePicture['name']);
     $uploadPath = $uploadDir . $uniqueName;
 
     if (!move_uploaded_file($profilePicture['tmp_name'], '../' . $uploadPath)) {

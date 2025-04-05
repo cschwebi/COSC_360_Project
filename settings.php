@@ -113,7 +113,7 @@
           </div>
 
           <div class="tab-content" id="User" style="display: block;">
-            <form id="user-settings-form" action="php_func/editProfile.php" method="post">
+            <form id="user-settings-form" action="php_func/editProfile.php" method="post" enctype="multipart/form-data">
                 <label for="username">Name</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username">
                 
