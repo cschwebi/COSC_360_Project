@@ -53,13 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        //Insert user (no hashing for now)
+        $hashed = md5($password);
+
+        //Insert user 
         $stmt = $pdo->prepare("INSERT INTO users (fullName, email, password, profileImage) VALUES (:fullName, :email, :password, :profileImage)");
 
         $stmt->execute([
             ':fullName'     => $fullName,
             ':email'        => $email,
-            ':password'     => $password, // NOTE: hash in future!
+            ':password'     => $hashed, // hashed pass
             ':profileImage' => $uploadPath
         ]);
 

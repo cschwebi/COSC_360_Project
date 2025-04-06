@@ -51,7 +51,7 @@ INSERT INTO users (fullName, email, password, profileImage, bio, role) VALUES
 (
     'John Smith',
     'john.smith@email.com',
-    'password123',
+    MD5('password123'),
     './img/default.png',
     'Tech enthusiast and professional software developer with 10 years of experience.',
     'admin'
@@ -59,7 +59,7 @@ INSERT INTO users (fullName, email, password, profileImage, bio, role) VALUES
 (
     'Sarah Johnson',
     'sarah.j@email.com',
-    'password123',
+    MD5('password123'),
     './img/default.png',
     'Digital marketing specialist and tech blogger. Love sharing knowledge about web development.',
     'user'
@@ -67,7 +67,7 @@ INSERT INTO users (fullName, email, password, profileImage, bio, role) VALUES
 (
     'Michael Chen',
     'mike.chen@email.com',
-    'password123',
+    MD5('password123'),
     './img/default.png',
     'UI/UX designer with a passion for creating beautiful and functional web experiences.',
     'user'
@@ -75,7 +75,7 @@ INSERT INTO users (fullName, email, password, profileImage, bio, role) VALUES
 (
     'Emma Wilson',
     'emma.wilson@email.com',
-    'password123',
+    MD5('password123'),
     './img/default.png',
     'Health and wellness expert with a focus on mental health and work-life balance.',
     'user'
@@ -195,6 +195,6 @@ INSERT INTO comments (blog_id, user_id, content) VALUES
 (12, 3, 'I completely agree, especially with the AI integration.'),
 (12, 1, 'This guide is really helpful for small businesses.'),
 (13, 2, 'I struggle with remote work too, thanks for the tips!'),
-(14, 3, 'Modern education is evolving fast—interesting read!'),
-(15, 1, 'I love how technology is reshaping entertainment!');
+(1, 3, 'Modern education is evolving fast—interesting read!'),
+(5, 1, 'I love how technology is reshaping entertainment!');
 
