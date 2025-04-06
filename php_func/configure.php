@@ -6,6 +6,7 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
 define('IMAGE_PATH', "/uploads/");
+define('PROJ_PATH', "/COSC_360_Project/");
 
 // Construct DSN (Data Source Name)
 define('DB_DSN', "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET);
