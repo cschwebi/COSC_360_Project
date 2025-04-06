@@ -50,7 +50,7 @@
           if (isset($_SESSION['user_id'])){
             echo "<li><a href='settings.php'>Settings</a></li>";
             echo "<li><a href='authors.php'>Authors</a></li>";
-            echo "<li><a href='favourites.html'>Favourites</a></li>";
+            echo "<li><a href='favourites.php'>Favourites</a></li>";
             echo "<li><a href='profile.php'>Profile</a></li>";
           }else{
             echo "<li><a href='login.html'>Settings</a></li>";
