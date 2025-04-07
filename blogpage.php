@@ -101,11 +101,7 @@ try {
       <div class="button-container">
         <button class="like-btn">Like</button>
         <?php if (isset($_SESSION['user_id'])): ?>
-          <?php if ($favorited): ?>
-            <button class="favorite-btn" disabled>Favourited</button>
-          <?php else: ?>
-            <button class="favorite-btn">Add to Favourites</button>
-          <?php endif; ?>
+            <button class="favorite-btn"><?php echo $favorited ? 'Favourited' : 'Add to Favourites'; ?></button>
         <?php else: ?>
             <button class="favorite-btn" onclick="window.location.href='login.html';">Add to Favourites</button>
         <?php endif; ?>
@@ -162,6 +158,7 @@ try {
     
     $('.favorite-btn').click(function(){
         if (!loggedIn) { window.location.href = 'login.html'; return; }
+        var $btn = $(this);
         $.ajax({
             url: 'php_func/favorite.php',
             type: 'POST',
@@ -169,12 +166,16 @@ try {
             dataType: 'json',
             success: function(response) {
                 if(response.success) {
-                    $('.favorite-btn').prop('disabled', true).text('Favourited');
+                    if(response.message === 'Added to favourites.') {
+                        $btn.text('Favourited');
+                    } else if(response.message === 'Removed from favourites.') {
+                        $btn.text('Add to Favourites');
+                    }
                 } else {
                     alert(response.message);
                 }
             },
-            error: function() { alert('Error adding to favourites.'); }
+            error: function() { alert('Error updating favourites.'); }
         });
     });
     

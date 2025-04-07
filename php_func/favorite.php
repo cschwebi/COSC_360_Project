@@ -24,11 +24,14 @@ try {
     $stmt->execute([':user_id' => $userId, ':blog_id' => $blogId]);
     $result = $stmt->fetch();
     if ($result['count'] > 0) {
-        echo json_encode(['success' => false, 'message' => 'Already favourited.']);
+        // Remove favourite if already favourited
+        $stmt = $pdo->prepare("DELETE FROM favorites WHERE user_id = :user_id AND blog_id = :blog_id");
+        $stmt->execute([':user_id' => $userId, ':blog_id' => $blogId]);
+        echo json_encode(['success' => true, 'message' => 'Removed from favourites.']);
         exit;
     }
     
-    // Insert into favourites
+    // Insert into favourites if not already favourited
     $stmt = $pdo->prepare("INSERT INTO favorites (user_id, blog_id) VALUES (:user_id, :blog_id)");
     $stmt->execute([':user_id' => $userId, ':blog_id' => $blogId]);
     
