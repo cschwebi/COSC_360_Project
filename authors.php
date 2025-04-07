@@ -106,7 +106,7 @@ try {
     <main>
       <?php foreach ($authors as $author): ?>
         <div class="authorBox">
-            <img src="<?php echo htmlspecialchars($author['profileImage'] ? $author['profileImage'] : 'img/default.png'); ?>" alt="<?php echo htmlspecialchars($author['fullName']); ?>">
+            <img src="<?php echo PROJ_PATH . htmlspecialchars($author['profileImage'] ? $author['profileImage'] : 'img/default.png'); ?>" alt="<?php echo htmlspecialchars($author['fullName']); ?>">
             <ol type="1">
                 <h2>
                   <a href="authorname.php?id=<?php echo htmlspecialchars($author['id']); ?>">

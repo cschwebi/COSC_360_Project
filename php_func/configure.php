@@ -6,7 +6,7 @@ define('DB_USER', 'clewendo');
 define('DB_PASS', 'pass');
 define('DB_CHARSET', 'utf8mb4');
 define('IMAGE_PATH', "/uploads/");
-define('PROJ_PATH', "/COSC_360_Project/");
+define('PROJ_PATH', "/clewendo/COSC_360_Project/");
 
 // Construct DSN (Data Source Name)
 define('DB_DSN', "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET);
