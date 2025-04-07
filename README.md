@@ -1,8 +1,6 @@
-# ccblogs
+# CCBlogs
+CCBlogs is a blog platform designed for posting, browsing, and managing content across various topics. It supports user registration, blog creation, and admin-level content moderation.
 
-ccblogs is a blog platform designed for posting, browsing, and managing content across various topics. It supports user registration, blog creation, and admin-level content moderation.
-
-**MAY HAVE TO MANUALLY RUN DDL TO LOAD DUMMY DATA**
 
 ## Features
 
@@ -53,7 +51,3 @@ ccblogs is a blog platform designed for posting, browsing, and managing content 
 | Michael Chen   | mike.chen@email.com       | password123   | User   |
 | Emma Wilson    | emma.wilson@email.com     | password123   | User   |
 
-## Notes
-- Profile image editing is still in progress.
-- Favorites table exists but is not fully integrated yet.
-- All uploaded images are stored in ./img/ or /uploads/
