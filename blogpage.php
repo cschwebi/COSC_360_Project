@@ -28,7 +28,7 @@ try {
     $stmtComments->execute([':blog_id' => $blogId]);
     $comments = $stmtComments->fetchAll();
 
-    // Check if already favourited by current user
+    //Check if already favourited by current user
     $favorited = false;
     if (isset($_SESSION['user_id'])) {
         $stmtFavorite = $pdo->prepare("SELECT COUNT(*) AS count FROM favorites WHERE user_id = :user_id AND blog_id = :blog_id");
@@ -100,7 +100,7 @@ try {
       </div>
       <div class="button-container">
         <?php
-        // check if post is alrady liked by user
+        // check if post is already liked by user
         $hasLiked = false;
         if (isset($_SESSION['user_id'])) {
             $stmt = $pdo->prepare("SELECT id FROM likes WHERE user_id = :user_id AND blog_id = :blog_id");
@@ -111,6 +111,11 @@ try {
         <button class="like-btn <?php echo $hasLiked ? 'liked' : ''; ?>">
             <?php echo $hasLiked ? 'Unlike' : 'Like'; ?>
         </button>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <button class="favorite-btn"><?php echo $favorited ? 'Favourited' : 'Add to Favourites'; ?></button>
+        <?php else: ?>
+            <button class="favorite-btn" onclick="window.location.href='login.html';">Add to Favourites</button>
+        <?php endif; ?>
       </div>
     </div>
 
@@ -145,14 +150,9 @@ try {
     var loggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
     
     $('.like-btn').click(function(){
-        if (!loggedIn) {
-            window.location.href = 'login.html';
-            return;
-        }
-        
+        if (!loggedIn) { window.location.href = 'login.html'; return; }
         var $button = $(this);
-        
-        // Send AJAX request to toggle like
+        //send  a AJAX request to toggle like
         $.ajax({
             url: 'php_func/like.php',
             type: 'POST',
@@ -162,7 +162,6 @@ try {
                 if(response.success) {
                     // Update like count
                     $('#like-count').text(response.like_count);
-                    
                     // Update button text and class
                     if(response.action === 'liked') {
                         $button.text('Unlike').addClass('liked');
