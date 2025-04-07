@@ -88,7 +88,7 @@ try {
             <?php if ($favAuthors): ?>
                 <?php foreach ($favAuthors as $author): ?>
                     <div class="authorBox">
-                        <img src="<?php echo htmlspecialchars($author['profileImage'] ? $author['profileImage'] : 'img/default.png'); ?>" alt="<?php echo htmlspecialchars($author['fullName']); ?>">
+                        <img src="<?php echo PROJ_PATH . htmlspecialchars($author['profileImage'] ? $author['profileImage'] : 'img/default.png'); ?>" alt="<?php echo htmlspecialchars($author['fullName']); ?>">
                         <h2>
                             <a href="authorname.php?id=<?php echo htmlspecialchars($author['id']); ?>">
                                 <?php echo htmlspecialchars($author['fullName']); ?>
