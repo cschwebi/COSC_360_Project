@@ -1,0 +1,758 @@
+{
+	"info": {
+		"_postman_id": "your-collection-id",
+		"name": "Blog API Tests",
+		"description": "Collection of API tests for the blog application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "testuser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "testpass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/php_func/login.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "login.php"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful login",
+									"pm.test(\"Login successful with valid credentials\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData.message).to.equal(\"Login successful\");",
+									"    pm.expect(jsonData).to.have.property('user_id');",
+									"    pm.expect(jsonData).to.have.property('username');",
+									"    ",
+									"    // Store user data for other requests",
+									"    if (jsonData.user_id) {",
+									"        pm.environment.set(\"user_id\", jsonData.user_id);",
+									"        pm.environment.set(\"username\", jsonData.username);",
+									"    }",
+									"});",
+									"",
+									"// Test failed login",
+									"pm.test(\"Login fails with invalid credentials\", function () {",
+									"    if (pm.response.code === 401) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.equal(\"Invalid username or password\");",
+									"    }",
+									"});",
+									"",
+									"// Test input validation",
+									"pm.test(\"Login validates required fields\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"required\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "newuser",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "newpass",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "newuser@example.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/php_func/register.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "register.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful registration",
+									"pm.test(\"Registration successful with valid data\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData.message).to.equal(\"Registration successful\");",
+									"});",
+									"",
+									"// Test duplicate username",
+									"pm.test(\"Registration fails with duplicate username\", function () {",
+									"    if (pm.response.code === 409) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"username already exists\");",
+									"    }",
+									"});",
+									"",
+									"// Test email validation",
+									"pm.test(\"Registration validates email format\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"invalid email\");",
+									"    }",
+									"});",
+									"",
+									"// Test password requirements",
+									"pm.test(\"Registration validates password requirements\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"password\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/php_func/logout.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "logout.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful logout",
+									"pm.test(\"Logout successful\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData.message).to.equal(\"Logged out successfully\");",
+									"});",
+									"",
+									"// Test session cleanup",
+									"pm.test(\"Session is properly cleared\", function () {",
+									"    pm.response.to.have.header(\"Set-Cookie\");",
+									"    var cookies = pm.response.headers.get(\"Set-Cookie\");",
+									"    pm.expect(cookies).to.include(\"expires=Thu, 01 Jan 1970\");",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Blog Posts",
+			"item": [
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Test Blog Post",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "This is a test blog post content",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/php_func/createPost.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "createPost.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful post creation",
+									"pm.test(\"Post creation successful\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData).to.have.property('post_id');",
+									"    pm.expect(jsonData).to.have.property('title');",
+									"    pm.expect(jsonData).to.have.property('content');",
+									"    ",
+									"    // Store post ID for other requests",
+									"    if (jsonData.post_id) {",
+									"        pm.environment.set(\"post_id\", jsonData.post_id);",
+									"    }",
+									"});",
+									"",
+									"// Test image upload",
+									"pm.test(\"Image upload successful\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.image_url) {",
+									"        pm.expect(jsonData.image_url).to.match(/^\\/uploads\\/.*\\.(jpg|jpeg|png|gif)$/i);",
+									"    }",
+									"});",
+									"",
+									"// Test content validation",
+									"pm.test(\"Content validation\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"content\");",
+									"    }",
+									"});",
+									"",
+									"// Test file type validation",
+									"pm.test(\"File type validation\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"file type\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Get Blogs",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{base_url}}/php_func/get_blogs.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "get_blogs.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful blog retrieval",
+									"pm.test(\"Blogs retrieved successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('array');",
+									"    ",
+									"    // Test blog structure",
+									"    if (jsonData.length > 0) {",
+									"        var blog = jsonData[0];",
+									"        pm.expect(blog).to.have.property('post_id');",
+									"        pm.expect(blog).to.have.property('title');",
+									"        pm.expect(blog).to.have.property('content');",
+									"        pm.expect(blog).to.have.property('author');",
+									"        pm.expect(blog).to.have.property('created_at');",
+									"    }",
+									"});",
+									"",
+									"// Test pagination",
+									"pm.test(\"Pagination works correctly\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.be.at.most(10);",
+									"});",
+									"",
+									"// Test sorting",
+									"pm.test(\"Blogs are sorted by date\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.length > 1) {",
+									"        var firstDate = new Date(jsonData[0].created_at);",
+									"        var secondDate = new Date(jsonData[1].created_at);",
+									"        pm.expect(firstDate >= secondDate).to.be.true;",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Add Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "post_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Test comment",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/php_func/add_comment.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "add_comment.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful comment addition",
+									"pm.test(\"Comment added successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData).to.have.property('comment_id');",
+									"    pm.expect(jsonData).to.have.property('post_id');",
+									"    pm.expect(jsonData).to.have.property('user_id');",
+									"});",
+									"",
+									"// Test comment length validation",
+									"pm.test(\"Comment length validation\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"comment length\");",
+									"    }",
+									"});",
+									"",
+									"// Test post existence validation",
+									"pm.test(\"Post existence validation\", function () {",
+									"    if (pm.response.code === 404) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"post not found\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User Interactions",
+			"item": [
+				{
+					"name": "Like Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "post_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/php_func/like.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "like.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful like",
+									"pm.test(\"Post liked successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData).to.have.property('likes_count');",
+									"});",
+									"",
+									"// Test duplicate like prevention",
+									"pm.test(\"Duplicate like prevention\", function () {",
+									"    if (pm.response.code === 409) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"already liked\");",
+									"    }",
+									"});",
+									"",
+									"// Test post existence validation",
+									"pm.test(\"Post existence validation\", function () {",
+									"    if (pm.response.code === 404) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"post not found\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Add to Favorites",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "post_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/php_func/favorite.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "favorite.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful favorite addition",
+									"pm.test(\"Post added to favorites successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData).to.have.property('favorite_id');",
+									"});",
+									"",
+									"// Test duplicate favorite prevention",
+									"pm.test(\"Duplicate favorite prevention\", function () {",
+									"    if (pm.response.code === 409) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"already in favorites\");",
+									"    }",
+									"});",
+									"",
+									"// Test post existence validation",
+									"pm.test(\"Post existence validation\", function () {",
+									"    if (pm.response.code === 404) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"post not found\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Edit Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "updateduser",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "updated@example.com",
+									"type": "text"
+								},
+								{
+									"key": "profile_image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/php_func/editProfile.php",
+							"host": ["{{base_url}}"],
+							"path": ["php_func", "editProfile.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful profile update",
+									"pm.test(\"Profile updated successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData).to.have.property('username');",
+									"    pm.expect(jsonData).to.have.property('email');",
+									"});",
+									"",
+									"// Test email format validation",
+									"pm.test(\"Email format validation\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"invalid email\");",
+									"    }",
+									"});",
+									"",
+									"// Test username uniqueness",
+									"pm.test(\"Username uniqueness validation\", function () {",
+									"    if (pm.response.code === 409) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"username already exists\");",
+									"    }",
+									"});",
+									"",
+									"// Test image upload validation",
+									"pm.test(\"Image upload validation\", function () {",
+									"    if (pm.response.code === 400) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.include(\"image\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "adminpass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/adminLogin.php",
+							"host": ["{{base_url}}"],
+							"path": ["adminLogin.php"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// Test successful admin login",
+									"pm.test(\"Admin login successful\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.status).to.equal(\"success\");",
+									"    pm.expect(jsonData).to.have.property('admin_id');",
+									"    pm.expect(jsonData).to.have.property('role');",
+									"    pm.expect(jsonData.role).to.equal(\"admin\");",
+									"    ",
+									"    // Store admin session for other requests",
+									"    if (jsonData.admin_id) {",
+									"        pm.environment.set(\"admin_id\", jsonData.admin_id);",
+									"    }",
+									"});",
+									"",
+									"// Test failed admin login",
+									"pm.test(\"Admin login fails with invalid credentials\", function () {",
+									"    if (pm.response.code === 401) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.equal(\"Invalid admin credentials\");",
+									"    }",
+									"});",
+									"",
+									"// Test non-admin user access",
+									"pm.test(\"Non-admin user access prevention\", function () {",
+									"    if (pm.response.code === 403) {",
+									"        var jsonData = pm.response.json();",
+									"        pm.expect(jsonData.status).to.equal(\"error\");",
+									"        pm.expect(jsonData.message).to.equal(\"Access denied\");",
+									"    }",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Set up environment variables if needed",
+					"if (!pm.environment.get('base_url')) {",
+					"    pm.environment.set('base_url', 'http://localhost/COSC_360_Project');",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global test for all requests",
+					"pm.test(\"Status code is 200 or expected error code\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 400, 401, 403, 404, 409]);",
+					"});",
+					"",
+					"pm.test(\"Response has JSON body\", function () {",
+					"    pm.response.to.be.json;",
+					"});",
+					"",
+					"pm.test(\"Response has status field\", function () {",
+					"    var jsonData = pm.response.json();",
+					"    pm.expect(jsonData).to.have.property('status');",
+					"    pm.expect(jsonData.status).to.be.oneOf(['success', 'error']);",
+					"});",
+					"",
+					"pm.test(\"Response time is acceptable\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost/COSC_360_Project",
+			"type": "string"
+		}
+	]
+} 
