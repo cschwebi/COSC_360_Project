@@ -17,7 +17,7 @@
     })();
   </script>
 </head>
-<body>
+<body class="header-container">
 <header>
   <div class="top-header">
     <h1><a href="index.php">CC Blogs</a></h1>

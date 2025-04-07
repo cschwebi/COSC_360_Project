@@ -90,9 +90,15 @@ header nav ul li a:hover {
     font-size: 12px;
     position: absolute;
     right: 1em;
-    top: -.5em;
+    top: 0.25em;
 }
 
 .login-nav a{
     text-decoration: none;
+}
+header {
+    margin-top: -15px;
+  }
+.header-container {
+margin-top: 0px; 
 }

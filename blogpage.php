@@ -2,7 +2,6 @@
 require_once 'php_func/configure.php';
 session_start();
 
-// heck for the blog ID in the URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: index.php");
     exit;
@@ -12,7 +11,6 @@ $blogId = intval($_GET['id']);
 try {
     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, PDO_OPTIONS);
     
-    //  Fetch the blog post along with author details
     $sql = "SELECT b.*, u.fullName AS author, u.id AS author_id 
             FROM blogs b 
             JOIN users u ON b.author_id = u.id 
@@ -26,10 +24,23 @@ try {
         exit;
     }
     
-    // Fetch comments for this blog post
     $stmtComments = $pdo->prepare("SELECT c.*, u.fullName FROM comments c JOIN users u ON c.user_id = u.id WHERE c.blog_id = :blog_id ORDER BY c.created_at ASC");
     $stmtComments->execute([':blog_id' => $blogId]);
     $comments = $stmtComments->fetchAll();
+
+    //Check if already favourited by current user
+    $favorited = false;
+    if (isset($_SESSION['user_id'])) {
+        $stmtFavorite = $pdo->prepare("SELECT COUNT(*) AS count FROM favorites WHERE user_id = :user_id AND blog_id = :blog_id");
+        $stmtFavorite->execute([
+            ':user_id' => $_SESSION['user_id'],
+            ':blog_id' => $blogId
+        ]);
+        $resultFavorite = $stmtFavorite->fetch();
+        if ($resultFavorite['count'] > 0) {
+            $favorited = true;
+        }
+    }
     
 } catch (PDOException $e) {
     die("<script>alert('Database error: " . addslashes($e->getMessage()) . "'); window.history.back();</script>");
@@ -45,35 +56,12 @@ try {
   <link rel="stylesheet" href="css/blogpage.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
-    /* Inline CSS to scale the cover image */
-    .blog-image img {
-      max-width: 100%;
-      height: auto;
-    }
-    /* You can adjust styling for the comment form and list as needed */
-    .comments-container .comment {
-      border-bottom: 1px solid #ccc;
-      padding: 8px 0;
-    }
-    #commentForm textarea {
-      width: 100%;
-      height: 80px;
-      box-sizing: border-box;
-      padding: 8px;
-    }
-    #commentForm button {
-      background: #2e2f59;
-      color: #fff;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 5px;
-      transition: background 0.3s ease;
-    }
-    #commentForm button:hover {
-      background: #1a1a3c;
-    }
+    .blog-image img { max-width: 100%; height: auto; }
+    .comments-container .comment { border-bottom: 1px solid #ccc; padding: 8px 0; }
+    #commentForm textarea { width: 100%; height: 80px; box-sizing: border-box; padding: 8px; }
+    #commentForm button { background: #2e2f59; color: #fff; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin-top: 5px; transition: background 0.3s ease; }
+    #commentForm button:hover { background: #1a1a3c; }
+    .button-container button { margin-right: 10px; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -93,9 +81,7 @@ try {
 
     <h1><?php echo htmlspecialchars($blog['title']); ?></h1>
     <div class="blog-meta">
-      By <a href="authorname.php?id=<?php echo htmlspecialchars($blog['author_id']); ?>">
-            <?php echo htmlspecialchars($blog['author']); ?>
-          </a> | 
+      By <a href="authorname.php?id=<?php echo htmlspecialchars($blog['author_id']); ?>"><?php echo htmlspecialchars($blog['author']); ?></a> | 
       <?php echo date('F j, Y', strtotime($blog['created_at'])); ?> |
       <?php echo htmlspecialchars($blog['topic']); ?>
     </div>
@@ -105,10 +91,7 @@ try {
     </div>
 
     <div class="blog-content">
-      <?php 
-      // Display the full blog content
-      echo nl2br(htmlspecialchars($blog['content'])); 
-      ?>
+      <?php echo nl2br(htmlspecialchars($blog['content'])); ?>
     </div>
 
     <div class="social-section">
@@ -117,7 +100,7 @@ try {
       </div>
       <div class="button-container">
         <?php
-        // check if post is alrady liked by user
+        // check if post is already liked by user
         $hasLiked = false;
         if (isset($_SESSION['user_id'])) {
             $stmt = $pdo->prepare("SELECT id FROM likes WHERE user_id = :user_id AND blog_id = :blog_id");
@@ -128,6 +111,11 @@ try {
         <button class="like-btn <?php echo $hasLiked ? 'liked' : ''; ?>">
             <?php echo $hasLiked ? 'Unlike' : 'Like'; ?>
         </button>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <button class="favorite-btn"><?php echo $favorited ? 'Favourited' : 'Add to Favourites'; ?></button>
+        <?php else: ?>
+            <button class="favorite-btn" onclick="window.location.href='login.html';">Add to Favourites</button>
+        <?php endif; ?>
       </div>
     </div>
 
@@ -147,7 +135,6 @@ try {
         <?php endif; ?>
       </div>
 
-      <!-- Comment Form -->
       <form id="commentForm">
         <textarea id="commentContent" placeholder="Write your comment..."></textarea>
         <button type="submit">Submit Comment</button>
@@ -160,19 +147,12 @@ try {
       $("#header").load("header.php");
     });
     
-    // A global variable to indicate if the user is logged in
     var loggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
     
-    // Like button click event
     $('.like-btn').click(function(){
-        if (!loggedIn) {
-            window.location.href = 'login.html';
-            return;
-        }
-        
+        if (!loggedIn) { window.location.href = 'login.html'; return; }
         var $button = $(this);
-        
-        // Send AJAX request to toggle like
+        //send  a AJAX request to toggle like
         $.ajax({
             url: 'php_func/like.php',
             type: 'POST',
@@ -182,7 +162,6 @@ try {
                 if(response.success) {
                     // Update like count
                     $('#like-count').text(response.like_count);
-                    
                     // Update button text and class
                     if(response.action === 'liked') {
                         $button.text('Unlike').addClass('liked');
@@ -193,24 +172,38 @@ try {
                     alert(response.message);
                 }
             },
-            error: function() {
-                alert('Error updating like.');
-            }
+            error: function() { alert('Error updating like.'); }
         });
     });
     
-    // Comment form submission event
+    $('.favorite-btn').click(function(){
+        if (!loggedIn) { window.location.href = 'login.html'; return; }
+        var $btn = $(this);
+        $.ajax({
+            url: 'php_func/favorite.php',
+            type: 'POST',
+            data: { blog_id: <?php echo htmlspecialchars($blog['id']); ?> },
+            dataType: 'json',
+            success: function(response) {
+                if(response.success) {
+                    if(response.message === 'Added to favourites.') {
+                        $btn.text('Favourited');
+                    } else if(response.message === 'Removed from favourites.') {
+                        $btn.text('Add to Favourites');
+                    }
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function() { alert('Error updating favourites.'); }
+        });
+    });
+    
     $('#commentForm').submit(function(e) {
         e.preventDefault();
-        if (!loggedIn) {
-            window.location.href = 'login.html';
-            return;
-        }
+        if (!loggedIn) { window.location.href = 'login.html'; return; }
         var commentContent = $('#commentContent').val().trim();
-        if(commentContent === '') {
-            alert('Please enter a comment.');
-            return;
-        }
+        if(commentContent === '') { alert('Please enter a comment.'); return; }
         $.ajax({
             url: 'php_func/add_comment.php',
             type: 'POST',
@@ -218,18 +211,15 @@ try {
             dataType: 'json',
             success: function(response) {
                 if(response.success) {
-                    // Append the new comment to the container
                     $('.comments-container').append(
                         '<div class="comment"><p><strong>' + response.user + ':</strong> ' + response.content + '</p><p class="comment-date">' + response.created_at + '</p></div>'
                     );
-                    $('#commentContent').val(''); // Clear textarea
+                    $('#commentContent').val('');
                 } else {
                     alert(response.message);
                 }
             },
-            error: function() {
-                alert('Error submitting comment.');
-            }
+            error: function() { alert('Error submitting comment.'); }
         });
     });
   </script>
