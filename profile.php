@@ -20,8 +20,14 @@ try {
     $stmtComments->execute([':user_id' => $userId]);
     $comments = $stmtComments->fetchAll();
 
-    // Fetch posts that the user liked (favorites)
-    $stmtLikes = $pdo->prepare("SELECT b.* FROM favorites f JOIN blogs b ON f.blog_id = b.id WHERE f.user_id = :user_id ORDER BY f.created_at DESC");
+    // Fetch posts that the user liked, ordered by most recent like
+    $stmtLikes = $pdo->prepare("
+        SELECT b.*, l.created_at as liked_at 
+        FROM likes l 
+        JOIN blogs b ON l.blog_id = b.id 
+        WHERE l.user_id = :user_id 
+        ORDER BY l.created_at DESC
+    ");
     $stmtLikes->execute([':user_id' => $userId]);
     $likes = $stmtLikes->fetchAll();
 } catch (PDOException $e) {
@@ -147,6 +153,7 @@ try {
                                         echo htmlspecialchars(substr(strip_tags($like['content']), 0, 150)) . '...';
                                     ?>
                                 </p>
+                                <p class="like-date">Liked on: <?php echo date('F j, Y g:i A', strtotime($like['liked_at'])); ?></p>
                             </div>
                             <div class="blog-image">
                                 <img src="<?php echo htmlspecialchars($like['image']); ?>" alt="Cover image for <?php echo htmlspecialchars($like['title']); ?>">
