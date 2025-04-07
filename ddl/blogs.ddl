@@ -46,6 +46,38 @@ CREATE TABLE favorites (
     FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE
 );
 
+-- Create likes table to track who liked which posts
+CREATE TABLE likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    blog_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_like (user_id, blog_id),  -- Prevents duplicate likes
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE
+);
+
+-- Trigger updates like_count on liking and unliking
+DELIMITER //
+CREATE TRIGGER after_like_insert
+AFTER INSERT ON likes
+FOR EACH ROW
+BEGIN
+    UPDATE blogs SET like_count = (
+        SELECT COUNT(*) FROM likes WHERE blog_id = NEW.blog_id
+    ) WHERE id = NEW.blog_id;
+END//
+
+CREATE TRIGGER after_like_delete
+AFTER DELETE ON likes
+FOR EACH ROW
+BEGIN
+    UPDATE blogs SET like_count = (
+        SELECT COUNT(*) FROM likes WHERE blog_id = OLD.blog_id
+    ) WHERE id = OLD.blog_id;
+END//
+DELIMITER ;
+
 -- First, let's insert some test users
 INSERT INTO users (fullName, email, password, profileImage, bio, role) VALUES
 (
@@ -197,4 +229,30 @@ INSERT INTO comments (blog_id, user_id, content) VALUES
 (13, 2, 'I struggle with remote work too, thanks for the tips!'),
 (1, 3, 'Modern education is evolving fast—interesting read!'),
 (5, 1, 'I love how technology is reshaping entertainment!');
+
+-- Insert dummy likes data
+INSERT INTO likes (user_id, blog_id, created_at) VALUES
+-- John Smith (user_id: 1) likes
+(1, 2, '2024-03-15 10:30:00'),  -- Digital Marketing Strategies
+(1, 4, '2024-03-14 15:45:00'),  -- Impact of Technology on Education
+(1, 7, '2024-03-13 09:20:00'),  -- Financial Planning
+(1, 12, '2024-03-12 14:15:00'), -- Maximizing Productivity with AI
+
+-- Sarah Johnson (user_id: 2) likes
+(2, 1, '2024-03-16 11:20:00'),  -- Future of Web Development
+(2, 3, '2024-03-15 16:30:00'),  -- Staying Productive While Working Remotely
+(2, 8, '2024-03-14 13:45:00'),  -- Art of Travel Photography
+(2, 11, '2024-03-13 10:15:00'), -- Quick and Healthy Meal Prep
+
+-- Michael Chen (user_id: 3) likes
+(3, 5, '2024-03-17 09:30:00'),  -- Entertainment in Digital Age
+(3, 6, '2024-03-16 14:20:00'),  -- Mindful Eating
+(3, 9, '2024-03-15 11:45:00'),  -- Modern Parenting
+(3, 13, '2024-03-14 16:15:00'), -- Evolution of Online Learning
+
+-- Emma Wilson (user_id: 4) likes
+(4, 1, '2024-03-18 10:15:00'),  -- Future of Web Development
+(4, 3, '2024-03-17 15:30:00'),  -- Staying Productive While Working Remotely
+(4, 7, '2024-03-16 12:45:00'),  -- Financial Planning
+(4, 12, '2024-03-15 09:20:00'); -- Maximizing Productivity with AI
 

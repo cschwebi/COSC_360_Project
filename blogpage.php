@@ -106,7 +106,7 @@ try {
 
     <div class="blog-content">
       <?php 
-      // Display the full blog content. (Consider using a rich text display if needed.)
+      // Display the full blog content
       echo nl2br(htmlspecialchars($blog['content'])); 
       ?>
     </div>
@@ -116,7 +116,18 @@ try {
         <p>Likes: <span id="like-count"><?php echo htmlspecialchars($blog['like_count']); ?></span></p>
       </div>
       <div class="button-container">
-        <button class="like-btn">Like</button>
+        <?php
+        // check if post is alrady liked by user
+        $hasLiked = false;
+        if (isset($_SESSION['user_id'])) {
+            $stmt = $pdo->prepare("SELECT id FROM likes WHERE user_id = :user_id AND blog_id = :blog_id");
+            $stmt->execute([':user_id' => $_SESSION['user_id'], ':blog_id' => $blogId]);
+            $hasLiked = $stmt->fetch() !== false;
+        }
+        ?>
+        <button class="like-btn <?php echo $hasLiked ? 'liked' : ''; ?>">
+            <?php echo $hasLiked ? 'Unlike' : 'Like'; ?>
+        </button>
       </div>
     </div>
 
@@ -158,7 +169,10 @@ try {
             window.location.href = 'login.html';
             return;
         }
-        // Send AJAX request to update like count
+        
+        var $button = $(this);
+        
+        // Send AJAX request to toggle like
         $.ajax({
             url: 'php_func/like.php',
             type: 'POST',
@@ -166,7 +180,15 @@ try {
             dataType: 'json',
             success: function(response) {
                 if(response.success) {
+                    // Update like count
                     $('#like-count').text(response.like_count);
+                    
+                    // Update button text and class
+                    if(response.action === 'liked') {
+                        $button.text('Unlike').addClass('liked');
+                    } else {
+                        $button.text('Like').removeClass('liked');
+                    }
                 } else {
                     alert(response.message);
                 }
