@@ -23,16 +23,18 @@
     <h1><a href="index.php">CC Blogs</a></h1>
     <div class="login-nav">
         <p>
-        <a href="register.html">Register</a> |
-        <?php
+        <?php //Dynamically update the login/logout button based on session status in top right
         session_start();
-        if (isset($_SESSION['user_id'])){
-          echo "<a href='profile.php'>Login</a> |";
-        }else{
-          echo "<a href='login.html'>Login</a> |";
+        if (isset($_SESSION['user_id'])) {
+            echo "Hello, " . htmlspecialchars($_SESSION['displayName']);
+            if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+                echo " | <a href='adminLogin.php'>Admin</a>";
+            }
+            echo " | <a href='php_func/logout.php'>Logout</a>";
+        } else {
+            echo "<a href='register.html'>Register</a> | <a href='login.html'>Login</a> | <a href='adminLogin.php'>Admin</a>";
         }
-        ?>
-        <a href="adminLogin.php">Admin</a></p>
+        ?></p>
     </div>
     <div class="search-bar">
       <form id="searchForm" method="get" action="search.php">

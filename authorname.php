@@ -72,7 +72,7 @@ try {
     </div>
 
     <div class="profile-info">
-      <img src="<?php echo htmlspecialchars($author['profileImage'] ? $author['profileImage'] : 'img/default.png'); ?>" alt="<?php echo htmlspecialchars($author['fullName']); ?>">
+      <img src="<?php echo PROJ_PATH . htmlspecialchars($author['profileImage'] ? $author['profileImage'] : 'img/default.png'); ?>" alt="<?php echo htmlspecialchars($author['fullName']); ?>">
       <div class="profile-details">
         <p><strong>Name:</strong> <?php echo htmlspecialchars($author['fullName']); ?></p>
         <p><strong>Bio:</strong> <?php echo htmlspecialchars($author['bio']); ?></p>

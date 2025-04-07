@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['headerImage']) && $_FILES['headerImage']['error'] === UPLOAD_ERR_OK) {
             $file_info = pathinfo($_FILES['headerImage']['name']);
             $file_extension = strtolower($file_info['extension']);
+            $file_name = $file_info['filename'];
             
             // Validate file type
             $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 mkdir($upload_dir, 0777, true);
             }
 
-            // Set the new file path
+            // Set the new file path //found the problem lol
             $new_file_name = $blog_id . '.' . $file_extension;
             $upload_path = $upload_dir . $new_file_name;
             $db_image_path = './img/blogimages/' . $new_file_name;

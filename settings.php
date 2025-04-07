@@ -111,29 +111,28 @@
             <div class="tab-content" id="Customization" style="display: none;">
                 <button id="dark-mode-toggle">Toggle Dark Mode</button>
             </div>
-
-            <div class="tab-content" id="User" style="display: block;">
-                <form id="user-settings-form" action="php_func/editProfile.php" method="post">
-                    <label for="username">Name</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username">
-                    
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email">
-                    
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter new password">
-                    
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password">
-                    
-                    <label for="bio">Bio</label>
-                    <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"></textarea>
-                    
-                    <label for="profile-picture">Profile Picture URL</label>
-                    <input type="file" id="profile-picture" name="profile-picture" placeholder="Link to your profile picture">
-                    
-                    <input type="submit" value="Save Changes">
-                </form>
+          <div class="tab-content" id="User" style="display: block;">
+            <form id="user-settings-form" action="php_func/editProfile.php" method="post" enctype="multipart/form-data">
+                <label for="username">Name</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username">
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter new password">
+                
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password">
+                
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself"></textarea>
+                
+                <label for="profile-picture">Profile Picture URL</label>
+                <input type="file" id="profile-picture" name="profile-picture" placeholder="Link to your profile picture">
+                
+                <input type="submit" value="Save Changes">
+            </form>
 
                 <form id="user-settings-form" action="php_func/logout.php" method="post" style="margin-top: 20px;">
                     <button type="submit">Log-out</button>
