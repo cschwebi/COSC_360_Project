@@ -1,0 +1,117 @@
+.trending-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.trending-columns {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+.trending-column {
+    flex: 1;
+}
+.trending-section {
+    margin-bottom: 40px;
+}
+.trending-section h2 {
+    color: #2e2f59;
+    border-bottom: 2px solid #2e2f59;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.post-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+.post-rank {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2e2f59;
+    margin-right: 20px;
+    min-width: 40px;
+    text-align: center;
+}
+.post-content {
+    flex-grow: 1;
+}
+.post-content h3 {
+    margin: 0 0 10px 0;
+}
+.post-meta {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+.like-count {
+    color: #e74c3c;
+    font-weight: bold;
+}
+.topic-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+.topic-rank {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2e2f59;
+    margin-right: 15px;
+    min-width: 30px;
+    text-align: center;
+}
+.topic-content {
+    flex-grow: 1;
+}
+.topic-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.post-count {
+    color: #666;
+    font-size: 0.9em;
+}
+.blog-image {
+    width: 100px;
+    height: 100px;
+    margin-left: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.chart-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    height: 300px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+.chart-title {
+    color: #2e2f59;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+    .trending-columns {
+        flex-direction: column;
+    }
+}
